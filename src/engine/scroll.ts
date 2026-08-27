@@ -60,6 +60,7 @@ export function viewportsOf(entry: SceneEntry, reduced: boolean): number {
 export class ScrollDirector {
   private readonly triggers: ScrollTrigger[] = [];
   private readonly progress = new Map<string, number>();
+  private sections = new Map<string, HTMLElement>();
   private readonly entries: readonly SceneEntry[];
   private lastSave = 0;
 
@@ -74,6 +75,7 @@ export class ScrollDirector {
   /** Liga cada seção do DOM à sua cena. */
   attach(sections: Map<string, HTMLElement>): void {
     this.detach();
+    this.sections = sections;
     this.entries.forEach((entry, index) => {
       const el = sections.get(entry.id);
       if (!el) return;
@@ -115,6 +117,21 @@ export class ScrollDirector {
 
   progressOf(id: string): number {
     return this.progress.get(id) ?? 0;
+  }
+
+  /**
+   * Segura o leitor no ponto `maxProgress` da cena `id`.
+   *
+   * Só o teto é aparado: rolar para trás continua funcionando, sempre. E a
+   * correção acontece uma vez por quadro, dentro do próprio laço de desenho,
+   * em vez de num ouvinte de scroll — assim ela não briga com a rolagem nem
+   * produz tremor.
+   */
+  clampTo(id: string, maxProgress: number): void {
+    const el = this.sections.get(id);
+    if (!el) return;
+    const limite = el.offsetTop + el.offsetHeight * Math.max(0, Math.min(1, maxProgress));
+    if (window.scrollY > limite) window.scrollTo(0, limite);
   }
 
   get activeId(): string {

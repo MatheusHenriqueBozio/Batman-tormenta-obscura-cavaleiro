@@ -28,17 +28,25 @@ npm run preview  # confere o build de produção localmente
 npm run og       # regera a imagem de preview e o favicon
 ```
 
-## Estado atual — Fase 1
+## Estado atual — Fase 2
 
-O trabalho é dividido em fases (`DIRECAO.md` §3 e `CLAUDE.md`). A Fase 1
-entrega o setup, o sistema visual da Parte II, e as cenas **S00, S01 e S02**.
+O trabalho é dividido em fases (`DIRECAO.md` §3 e `CLAUDE.md`). As fases 1 e 2
+entregam o setup, o sistema visual da Parte II, e as cenas **S00 a S09** —
+incluindo o primeiro microgame e as duas conversas em sprite.
 
 | Cena | Título | Registro | Estado |
 |---|---|---|---|
 | S00 | Título | A | pronta |
 | S01 | A Caverna | A | pronta |
 | S02 | Alguma Coisa Está Repetindo | A degradando | pronta |
-| S03–S25 | — | — | fases 2 a 5 |
+| S03 | Idiota | B | pronta |
+| S04 | A Escolha do Ouvinte | A | pronta |
+| S05 | O Vazio Preto | B | pronta |
+| S06 | Bárbara | A puro | pronta |
+| S07 | A Mola — **microgame 1** | B | pronta |
+| S08 | Interlúdio | limiar | pronta |
+| S09 | Alfred | A | pronta |
+| S10–S25 | — | — | fases 3 a 5 |
 
 ### O texto
 
@@ -46,9 +54,13 @@ A revisão 90/10 aprovada pelo autor está em [`TEXTO-REVISADO.md`](TEXTO-REVISA
 na raiz. Ele é a **fonte**: o texto das cenas é transferido de lá para
 `src/content/narrative.ts` sem alteração de uma palavra.
 
-As cenas S01 e S02 já estão preenchidas. As cenas S03 a S25 têm o texto pronto
-em `TEXTO-REVISADO.md` e entram no `narrative.ts` à medida que cada fase
-implementa as cenas correspondentes.
+Todo o texto já está no código: `narrative.ts` traz a narração, os pensamentos
+e as falas das cenas em prosa, e `dialogue.ts` traz as conversas em caixa
+(S06, S07 e S09).
+
+As cenas ainda não implementadas já estão com o texto no lugar, mas com janelas
+de progresso provisórias, marcadas como tal no arquivo. Afinar uma janela é
+trabalho da fase que constrói a cena, e não mexe no texto.
 
 Ao editar um parágrafo, edite nos dois lugares — as duas versões precisam
 continuar iguais.
@@ -64,7 +76,9 @@ continuar iguais.
 | A cor de uma cena | `src/visual/palettes.ts` |
 | Um sprite | `src/visual/sprites.ts` |
 | A fonte bitmap | `src/visual/bitfont.ts` |
+| Uma fala de conversa | `src/content/dialogue.ts` |
 | O comportamento de uma cena | `src/scenes/S0X_Nome.ts` |
+| A mecânica de um microgame | `src/games/*.ts` |
 | A ordem ou a duração das cenas | `src/scenes/index.ts` |
 
 ```
@@ -76,14 +90,25 @@ src/
     registers.ts     Registro A, Registro B e o limiar
     palettes.ts      paletas por cena
     grain.ts         ruído, grão, desalinhamento e massas por limiar
-    sprites.ts       sprites, escritos como mapas de pixel
+    sprites.ts       sprites e retratos, escritos como mapas de pixel
     bitfont.ts       a fonte bitmap do Registro A
+    dialoguebox.ts   a caixa de diálogo: paginação e revelação
   scenes/
     index.ts         o registro de cenas, em ordem narrativa
     cave.ts          a Batcaverna, compartilhada por S01, S02 e S04
+    dialoguescene.ts a gramática comum das conversas (S06 e S09)
     S00_Title.ts     uma por cena, nomeada pelo ID
     S01_Cave.ts
     S02_Repeat.ts
+    S03_Idiot.ts
+    S04_Listener.ts
+    S05_Void.ts
+    S06_Barbara.ts
+    S07_Spring.ts
+    S08_Interlude.ts
+    S09_Alfred.ts
+  games/
+    Confirm.ts       microgame 1 — A Confirmação (S07)
   engine/
     canvas.ts        o motor: um canvas, um rAF, um registro de cenas
     scroll.ts        faixas de rolagem, progresso e retomada
@@ -118,6 +143,11 @@ projeto — a rocha nasce de ruído, os sprites são mapas de pixel escritos à 
 a fonte bitmap é uma tabela de glifos, e até a imagem de preview e o favicon
 saem de `npm run og`, que importa os mesmos módulos que a obra usa em execução.
 Nenhuma fonte vem de CDN. Nenhuma requisição externa.
+
+**O scroll pode ser segurado, nunca sequestrado.** Uma cena declara até onde o
+leitor pode avançar — é assim que a conversa com a Bárbara espera o Enter e que
+a S07 trava a rolagem enquanto o leitor alimenta a confirmação. Só o teto é
+aparado: voltar continua funcionando sempre, e nenhuma cena impede o retorno.
 
 **Desktop-only.** Abaixo de 1024px de largura a experiência não carrega: o gate
 é avaliado antes de qualquer `import()` de cena.
