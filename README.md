@@ -28,37 +28,36 @@ npm run preview  # confere o build de produção localmente
 npm run og       # regera a imagem de preview e o favicon
 ```
 
-## Estado atual — Fase 4
+## Estado atual — Fase 5
 
-O trabalho é dividido em fases (`DIRECAO.md` §3 e `CLAUDE.md`). As fases 1 a 4
-entregam o setup, o sistema visual da Parte II, e as cenas **S00 a S19** —
-incluindo os quatro microgames, o trecho jogável e as duas conversas em sprite.
+O trabalho é dividido em fases (`DIRECAO.md` §3 e `CLAUDE.md`). Com a Fase 5 as
+**26 cenas existem** e a obra pode ser percorrida do início ao fim. Falta a
+Fase 6: uma passada de ritmo, sem código novo.
 
-| Cena | Título | Registro | Estado |
-|---|---|---|---|
-| S00 | Título | A | pronta |
-| S01 | A Caverna | A | pronta |
-| S02 | Alguma Coisa Está Repetindo | A degradando | pronta |
-| S03 | Idiota | B | pronta |
-| S04 | A Escolha do Ouvinte | A | pronta |
-| S05 | O Vazio Preto | B | pronta |
-| S06 | Bárbara | A puro | pronta |
-| S07 | A Mola — **microgame 1** | B | pronta |
-| S08 | Interlúdio | limiar | pronta |
-| S09 | Alfred | A | pronta |
-| S10 | A Corrida — **jogável** | A | pronta |
-| S11 | O Corredor | A degradando | pronta |
-| S12 | Luzes | A/C | pronta |
-| S13 | Toc. Toc. — **microgame 2** | A | pronta |
-| S14 | A Luz Tentadora | limiar | pronta |
-| S15 | A Floresta — **microgame 3** | B | pronta |
-| S16 | Branco | B | pronta |
-| S17 | A Figura | B | pronta |
-| S18 | Lutar Piora — **microgame central** | B | pronta |
-| S19 | Levantar | B | pronta |
-| S20–S25 | — | — | fase 5 |
+| Cena | Título | Registro | Cena | Título | Registro |
+|---|---|---|---|---|---|
+| S00 | Título | A | S13 | Toc. Toc. — **microgame 2** | A |
+| S01 | A Caverna | A | S14 | A Luz Tentadora | limiar |
+| S02 | Alguma Coisa Está Repetindo | A degradando | S15 | A Floresta — **microgame 3** | B |
+| S03 | Idiota | B | S16 | Branco | B |
+| S04 | A Escolha do Ouvinte | A | S17 | A Figura | B |
+| S05 | O Vazio Preto | B | S18 | Lutar Piora — **microgame central** | B |
+| S06 | Bárbara | A puro | S19 | Levantar | B |
+| S07 | A Mola — **microgame 1** | B | S20 | O Final Que Me Deixa Livre | limiar → A |
+| S08 | Interlúdio | limiar | S21 | Escuro | — |
+| S09 | Alfred | A | S22 | Mansão | A suavizado |
+| S10 | A Corrida — **jogável** | A | S23 | O Navio — **microgame 5** | B |
+| S11 | O Corredor | A degradando | S24 | Voar | B dessaturando |
+| S12 | Luzes | A/C | S25 | Créditos | A |
 
 O que ficou para a passada de ritmo está em [`FASE-6-RITMO.md`](FASE-6-RITMO.md).
+
+### Modo de depuração
+
+`?debug=1` na URL mostra, discretamente no canto, o ID da cena atual, o
+progresso dela de 0 a 1 e o registro ativo. Sem o parâmetro o elemento não é
+renderizado e o observador não é passado ao motor — a obra não sabe que ele
+existe.
 
 ### O texto
 
@@ -98,6 +97,7 @@ src/
   content/
     narrative.ts     texto por cena, editável sem tocar em visual
     dialogue.ts      diálogos das cenas em caixa
+    credits.ts       os créditos, na íntegra
   visual/
     registers.ts     Registro A, Registro B e o limiar
     palettes.ts      paletas por cena
@@ -131,12 +131,19 @@ src/
     S17_Figure.ts
     S18_Feed.ts
     S19_Rise.ts
+    S20_Free.ts
+    S21_Dark.ts
+    S22_Manor.ts
+    S23_Ship.ts
+    S24_Fly.ts
+    S25_Credits.ts
   games/
     Confirm.ts       microgame 1 — A Confirmação (S07)
     Run.ts           a corrida (S10)
     Knock.ts         microgame 2 — Toc. Toc. (S13)
     Forest.ts        microgame 3 — Seguir a Luz (S15)
     Feed.ts          microgame central — Lutar Piora (S18)
+    Ship.ts          microgame 5 — O Navio (S23)
   engine/
     canvas.ts        o motor: um canvas, um rAF, um registro de cenas
     scroll.ts        faixas de rolagem, progresso e retomada
@@ -171,6 +178,13 @@ projeto — a rocha nasce de ruído, os sprites são mapas de pixel escritos à 
 a fonte bitmap é uma tabela de glifos, e até a imagem de preview e o favicon
 saem de `npm run og`, que importa os mesmos módulos que a obra usa em execução.
 Nenhuma fonte vem de CDN. Nenhuma requisição externa.
+
+**O sistema de registros existe pela S23.** O mesmo vocabulário visual da
+mente — silhueta, escala livre, cor chapada, grão — significou aprisionamento,
+repetição, distorção e peso a obra inteira. Na cena do navio ele passa a
+significar espaço, altura, silêncio e leveza, sem uma palavra de explicação.
+É a única cena com movimento ascendente contínuo: tudo antes desceu, travou,
+repetiu ou andou para o lado.
 
 **Os microgames não confirmam nem punem.** A Floresta não diz que a direção
 está certa — é incerteza convertida em mecânica, e confirmar seria desmentir a

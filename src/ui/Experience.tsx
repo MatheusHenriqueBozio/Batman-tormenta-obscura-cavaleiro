@@ -7,7 +7,7 @@
  */
 
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
-import { Engine } from '../engine/canvas';
+import { Engine, type DebugInfo } from '../engine/canvas';
 import {
   clearProgress,
   loadProgress,
@@ -23,11 +23,23 @@ function prefersReducedMotion(): boolean {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 
+/**
+ * O modo de depuração só existe com `?debug=1` na URL.
+ *
+ * Sem o parâmetro nada é renderizado, nenhum observador é passado ao motor, e
+ * o caminho de depuração não roda — a obra não sabe que ele existe.
+ */
+function debugLigado(): boolean {
+  return new URLSearchParams(window.location.search).get('debug') === '1';
+}
+
 export default function Experience(): JSX.Element {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const engineRef = useRef<Engine | null>(null);
   const reduced = useMemo(prefersReducedMotion, []);
+  const debug = useMemo(debugLigado, []);
+  const debugRef = useRef<HTMLDivElement>(null);
   const [saved, setSaved] = useState<SavedProgress | null>(() => loadProgress());
 
   useEffect(() => {
@@ -41,7 +53,19 @@ export default function Experience(): JSX.Element {
       if (id) sections.set(id, el);
     }
 
-    const engine = new Engine(canvas, SCENES, reduced);
+    // O observador escreve direto no DOM, e não em estado do React: a cena
+    // desenha a sessenta quadros por segundo e um `setState` por quadro
+    // custaria mais que tudo que ele mede.
+    const observar = debug
+      ? (info: DebugInfo): void => {
+          const el = debugRef.current;
+          if (!el) return;
+          const texto = `${info.sceneId}  ${info.progress.toFixed(3)}  registro ${info.register}`;
+          if (el.textContent !== texto) el.textContent = texto;
+        }
+      : undefined;
+
+    const engine = new Engine(canvas, SCENES, reduced, observar);
     engineRef.current = engine;
     engine.start(sections, track);
 
@@ -65,7 +89,7 @@ export default function Experience(): JSX.Element {
       engine.stop();
       engineRef.current = null;
     };
-  }, [reduced]);
+  }, [reduced, debug]);
 
   const resume = (): void => {
     const engine = engineRef.current;
@@ -137,6 +161,8 @@ export default function Experience(): JSX.Element {
       </div>
 
       <div className="lida" aria-hidden="true" />
+
+      {debug && <div className="depuracao" ref={debugRef} aria-hidden="true" />}
 
       {saved && saved.sceneId !== SCENES[0].id && (
         <div className="retomar">

@@ -238,6 +238,25 @@ body {
 }
 
 /* ------------------------------------------------------------------ *
+ * Modo de depuração. Só existe com `?debug=1` — fora disso o elemento nem
+ * chega a ser renderizado. Discreto de propósito: ele é ferramenta de quem
+ * está construindo, e não pode competir com nada da obra.
+ * ------------------------------------------------------------------ */
+.depuracao {
+  position: fixed;
+  bottom: 0.6rem;
+  right: 0.8rem;
+  z-index: 6;
+  font-family: var(--fonte-a);
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+  color: var(--texto-baixo);
+  opacity: 0.55;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* ------------------------------------------------------------------ *
  * Gate desktop (§4). Leve, sem motion pesado.
  * ------------------------------------------------------------------ */
 .gate {

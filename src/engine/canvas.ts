@@ -10,7 +10,20 @@ import { Registers } from '../visual/registers';
 import { SCENE_PALETTES } from '../visual/palettes';
 import { Input } from './input';
 import { ScrollDirector } from './scroll';
+import type { Register } from '../visual/palettes';
 import type { Scene, SceneEntry, SceneFrame } from './scene';
+
+/**
+ * O que o modo de depuração recebe a cada quadro.
+ *
+ * O motor só chama isto se alguém tiver pedido. Sem `?debug=1` na URL nenhum
+ * observador é passado, e este caminho não roda.
+ */
+export interface DebugInfo {
+  readonly sceneId: string;
+  readonly progress: number;
+  readonly register: Register;
+}
 
 /** Um bloco de texto do DOM preso à faixa de rolagem de uma cena. */
 interface TextBlock {
@@ -44,12 +57,20 @@ export class Engine {
   private last = 0;
   private running = false;
   readonly reduced: boolean;
+  /** Observador do modo de depuração. Indefinido quando ele está desligado. */
+  private readonly watch: ((info: DebugInfo) => void) | undefined;
 
-  constructor(canvas: HTMLCanvasElement, entries: readonly SceneEntry[], reduced: boolean) {
+  constructor(
+    canvas: HTMLCanvasElement,
+    entries: readonly SceneEntry[],
+    reduced: boolean,
+    watch?: (info: DebugInfo) => void,
+  ) {
     this.registers = new Registers(canvas);
     this.entries = entries;
     this.reduced = reduced;
     this.director = new ScrollDirector(entries);
+    this.watch = watch;
   }
 
   get scroll(): ScrollDirector {
@@ -202,6 +223,14 @@ export class Engine {
 
     // A cena pode segurar o leitor. O motor não decide nada: só aplica.
     this.applyHold(scene, now, dt);
+
+    if (this.watch && entry) {
+      this.watch({
+        sceneId: entry.id,
+        progress: this.director.progressOf(entry.id),
+        register: scene?.register ?? 'A',
+      });
+    }
 
     this.updateBlocks(entry?.id ?? '');
     this.director.save(now);

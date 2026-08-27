@@ -1106,14 +1106,12 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
 
   // ---------------------------------------------------------------------
   // S20
-  // Janelas provisórias: a cena ainda não existe. Serão afinadas na fase
-  // que implementar esta cena, sem tocar no texto.
   // ---------------------------------------------------------------------
   {
     id: 'S20-a',
     scene: 'S20',
-    from: 0.02,
-    to: 0.123,
+    from: 0.24,
+    to: 0.4,
     register: 'A',
     place: 'left',
     lines: [
@@ -1123,8 +1121,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S20-b',
     scene: 'S20',
-    from: 0.163,
-    to: 0.266,
+    from: 0.43,
+    to: 0.54,
     register: 'A',
     place: 'left',
     lines: [
@@ -1134,8 +1132,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S20-c',
     scene: 'S20',
-    from: 0.306,
-    to: 0.409,
+    from: 0.56,
+    to: 0.62,
     register: 'A',
     place: 'left',
     lines: [
@@ -1145,8 +1143,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S20-d',
     scene: 'S20',
-    from: 0.449,
-    to: 0.551,
+    from: 0.65,
+    to: 0.71,
     register: 'A',
     place: 'left',
     lines: [
@@ -1156,8 +1154,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S20-e',
     scene: 'S20',
-    from: 0.591,
-    to: 0.694,
+    from: 0.73,
+    to: 0.8,
     register: 'A',
     place: 'left',
     lines: [
@@ -1167,8 +1165,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S20-f',
     scene: 'S20',
-    from: 0.734,
-    to: 0.837,
+    from: 0.83,
+    to: 0.92,
     register: 'A',
     place: 'left',
     lines: [
@@ -1178,8 +1176,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S20-g',
     scene: 'S20',
-    from: 0.877,
-    to: 0.98,
+    from: 0.94,
+    to: 1.0,
     register: 'A',
     place: 'left',
     lines: [
@@ -1190,14 +1188,12 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   // ---------------------------------------------------------------------
   // S22
   // Direção de cena: De volta à Mansão dos Wayne.
-  // Janelas provisórias: a cena ainda não existe. Serão afinadas na fase
-  // que implementar esta cena, sem tocar no texto.
   // ---------------------------------------------------------------------
   {
     id: 'S22-a',
     scene: 'S22',
-    from: 0.02,
-    to: 0.123,
+    from: 0.04,
+    to: 0.22,
     register: 'A',
     place: 'left',
     lines: [
@@ -1207,8 +1203,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S22-b',
     scene: 'S22',
-    from: 0.163,
-    to: 0.266,
+    from: 0.28,
+    to: 0.36,
     register: 'A',
     place: 'left',
     lines: [
@@ -1218,8 +1214,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S22-c',
     scene: 'S22',
-    from: 0.306,
-    to: 0.409,
+    from: 0.42,
+    to: 0.58,
     register: 'A',
     place: 'left',
     lines: [
@@ -1229,8 +1225,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S22-d',
     scene: 'S22',
-    from: 0.449,
-    to: 0.551,
+    from: 0.62,
+    to: 0.68,
     register: 'A',
     place: 'left',
     lines: [
@@ -1240,8 +1236,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S22-e',
     scene: 'S22',
-    from: 0.591,
-    to: 0.694,
+    from: 0.71,
+    to: 0.8,
     register: 'A',
     place: 'left',
     lines: [
@@ -1251,8 +1247,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S22-f',
     scene: 'S22',
-    from: 0.734,
-    to: 0.837,
+    from: 0.83,
+    to: 0.87,
     register: 'A',
     place: 'left',
     lines: [
@@ -1262,8 +1258,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S22-g',
     scene: 'S22',
-    from: 0.877,
-    to: 0.98,
+    from: 0.9,
+    to: 1.0,
     register: 'A',
     place: 'left',
     lines: [
@@ -1273,14 +1269,12 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
 
   // ---------------------------------------------------------------------
   // S23
-  // Janelas provisórias: a cena ainda não existe. Serão afinadas na fase
-  // que implementar esta cena, sem tocar no texto.
   // ---------------------------------------------------------------------
   {
     id: 'S23-a',
     scene: 'S23',
-    from: 0.02,
-    to: 0.48,
+    from: 0.03,
+    to: 0.16,
     register: 'B',
     place: 'left',
     lines: [
@@ -1290,8 +1284,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S23-b',
     scene: 'S23',
-    from: 0.52,
-    to: 0.98,
+    from: 0.2,
+    to: 0.36,
     register: 'B',
     place: 'left',
     lines: [
@@ -1301,14 +1295,12 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
 
   // ---------------------------------------------------------------------
   // S24
-  // Janelas provisórias: a cena ainda não existe. Serão afinadas na fase
-  // que implementar esta cena, sem tocar no texto.
   // ---------------------------------------------------------------------
   {
     id: 'S24-a',
     scene: 'S24',
-    from: 0.02,
-    to: 0.313,
+    from: 0.04,
+    to: 0.14,
     register: 'B',
     place: 'left',
     lines: [
@@ -1318,8 +1310,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S24-b',
     scene: 'S24',
-    from: 0.353,
-    to: 0.647,
+    from: 0.22,
+    to: 0.32,
     register: 'B',
     place: 'left',
     lines: [
@@ -1329,8 +1321,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S24-c',
     scene: 'S24',
-    from: 0.687,
-    to: 0.98,
+    from: 0.52,
+    to: 0.68,
     register: 'B',
     place: 'left',
     lines: [

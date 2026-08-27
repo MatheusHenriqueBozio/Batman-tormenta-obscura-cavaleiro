@@ -143,19 +143,29 @@ export class Registers {
    * então ampliado: é assim que o pixel dilata até virar mancha, sem que nada
    * na cena precise saber que isso está acontecendo.
    */
-  presentA(state?: ThresholdState): void {
+  presentA(state?: ThresholdState, coarse = 1): void {
     const { w, h, scale } = this.viewport;
     const ctx = this.mainCtx;
     ctx.imageSmoothingEnabled = false;
 
+    // O destino nunca muda: é sempre o retângulo em escala inteira, centrado.
+    // O que muda é a resolução da fonte — e é a diferença entre as duas que
+    // engrossa o pixel, tanto no grid da S22 quanto na mancha do limiar.
+    const destW = A_W * scale;
+    const destH = A_H * scale;
+
+    // Divisor do grid, e divisor do limiar. Os dois reduzem a fonte; o
+    // primeiro é constante na cena, o segundo corre com o scroll.
+    const grid = Math.max(1, Math.round(coarse));
+    const dilata = state && state.t > 0 ? Math.max(1, state.blitScale / BASE_SCALE) : 1;
+    const reduz = grid * dilata;
+
     let source: HTMLCanvasElement = this.a;
     let sw = A_W;
     let sh = A_H;
-
-    if (state && state.t > 0) {
-      const factor = Math.max(1, state.blitScale / BASE_SCALE);
-      sw = Math.max(2, Math.round(A_W / factor));
-      sh = Math.max(2, Math.round(A_H / factor));
+    if (reduz > 1) {
+      sw = Math.max(2, Math.round(A_W / reduz));
+      sh = Math.max(2, Math.round(A_H / reduz));
       if (this.tiny.width !== sw || this.tiny.height !== sh) {
         this.tiny.width = sw;
         this.tiny.height = sh;
@@ -165,20 +175,12 @@ export class Registers {
       source = this.tiny;
     }
 
-    // Sem limiar o destino é o retângulo inteiro em escala inteira, centrado.
-    // Com limiar ele passa a cobrir o viewport: a mancha não tem grid a
-    // respeitar, e a borda preta desapareceria de qualquer jeito.
-    let dw: number;
-    let dh: number;
-    if (state && state.t > 0.001) {
-      const intW = A_W * scale;
-      const intH = A_H * scale;
-      dw = intW + (w - intW) * state.t;
-      dh = intH + (h - intH) * state.t;
-    } else {
-      dw = A_W * scale;
-      dh = A_H * scale;
-    }
+    // Sem limiar o quadro fica no retângulo em escala inteira. Com limiar ele
+    // cresce até cobrir o viewport: a mancha não tem grid a respeitar, e a
+    // borda preta desapareceria de qualquer jeito.
+    const t = state?.t ?? 0;
+    const dw = t > 0.001 ? destW + (w - destW) * t : destW;
+    const dh = t > 0.001 ? destH + (h - destH) * t : destH;
     const dx = Math.round((w - dw) / 2);
     const dy = Math.round((h - dh) / 2);
     ctx.drawImage(source, 0, 0, sw, sh, dx, dy, Math.round(dw), Math.round(dh));
