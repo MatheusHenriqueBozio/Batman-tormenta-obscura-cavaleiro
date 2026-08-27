@@ -20,13 +20,20 @@ supunha quando estimou as durações, e na duração original os blocos não cab
 |---|---|---|---|
 | S14 | 2 viewports | 4 | dezessete falas; em duas, cada bloco teria menos de cem pixels de rolagem |
 | S17 | 2 viewports | 3 | doze falas, uma delas de 241 caracteres |
+| S22 | "longa e lenta" | 4 | sete falas, e a cena pede a desaceleração mais forte da obra |
 
 A S14 ficou decidida — o autor confirmou as quatro viewports na Fase 3. A S17
 segue aberta. Reavaliar as duas com a obra montada.
 
-**Comprimento total.** O mapa estimava 25 a 35 minutos. Vale medir o número
-real quando as 26 cenas existirem, e decidir se alguma cena está longa demais
-para o que entrega.
+**Comprimento total.** O mapa estimava 25 a 35 minutos. As 26 cenas somam
+**64,5 viewports** de rolagem, mais o tempo dos cinco microgames e da corrida.
+Vale medir o número real numa leitura de verdade e decidir se alguma cena está
+longa demais para o que entrega.
+
+**S25 — os créditos levam cerca de 52 segundos.** É rolagem automática e lenta,
+como a §S25 pede, e a piada da redundância precisa de acumulação para
+funcionar. Mas 50 segundos é muito para quem já terminou: vale ver se o ritmo
+se sustenta depois da S24.
 
 ---
 
@@ -54,5 +61,8 @@ página sem tocar no texto.
 - **As três aparições do Jason** (S03, S14, fala do Coringa). Conferir se a
   primeira é sutil demais para ser notada até na terceira leitura, e se a
   segunda é notada sem ser apontada.
+- **A leveza da S23 depois do peso da S18.** As duas cenas usam o mesmo
+  vocabulário visual com sentidos opostos. Conferir se a virada se sente, ou
+  se a distância entre elas dilui o contraste.
 - **Efeitos sem função narrativa.** O passo 6 da §3 manda remover todos. Fazer
   a varredura no fim, não durante.

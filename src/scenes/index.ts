@@ -32,4 +32,10 @@ export const SCENES: readonly SceneEntry[] = [
   { id: 'S17', viewports: 3, load: () => import('./S17_Figure').then((m) => m.default) },
   { id: 'S18', viewports: 5, load: () => import('./S18_Feed').then((m) => m.default) },
   { id: 'S19', viewports: 1.5, load: () => import('./S19_Rise').then((m) => m.default) },
+  { id: 'S20', viewports: 2, load: () => import('./S20_Free').then((m) => m.default) },
+  { id: 'S21', viewports: 1, load: () => import('./S21_Dark').then((m) => m.default) },
+  { id: 'S22', viewports: 4, load: () => import('./S22_Manor').then((m) => m.default) },
+  { id: 'S23', viewports: 4, load: () => import('./S23_Ship').then((m) => m.default) },
+  { id: 'S24', viewports: 3, load: () => import('./S24_Fly').then((m) => m.default) },
+  { id: 'S25', viewports: 2, load: () => import('./S25_Credits').then((m) => m.default) },
 ];
