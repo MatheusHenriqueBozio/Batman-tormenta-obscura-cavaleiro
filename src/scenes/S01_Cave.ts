@@ -29,6 +29,7 @@ export const S01: Scene = {
   register: 'A',
   viewports: 5,
   palette: P_CAVE,
+  ambience: ['gota', 'hum'],
 
   enter(): void {
     world ??= buildCave();

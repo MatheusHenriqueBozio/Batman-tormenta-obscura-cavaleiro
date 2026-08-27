@@ -56,17 +56,26 @@ export const S13: Scene = {
   viewports: 2,
   pinned: true,
   palette: P_HALL,
+  ambience: ['passos'],
 
   enter(): void {
     world ??= buildCorridor();
   },
 
-  draw({ progress, registers, input, dt }: SceneFrame): void {
+  draw({ progress, registers, input, dt, state, cue }: SceneFrame): void {
     const w = (world ??= buildCorridor());
     const c = P_HALL.colors;
     const ctx = registers.beginA(c.void);
 
     const camera = 0.96;
+
+    // A batida. Um efeito, e não ambiência: acontece uma vez, no ponto em que
+    // o texto diz "Toc. Toc.", e nunca mais. Sem arquivo de som registrado,
+    // isto não faz nada.
+    if (progress >= 0.19 && !state.bateu) {
+      state.bateu = true;
+      cue('batida');
+    }
 
     // Ele está ao lado da porta em que acabou de bater, e não mais no fim do
     // corredor: é a primeira vez na obra que os dois dividem o mesmo quadro.

@@ -43,6 +43,7 @@ export const S02: Scene = {
   viewports: 2,
   pinned: true,
   palette: P_CAVE,
+  ambience: ['gota', 'hum'],
 
   enter(): void {
     world ??= buildCave();

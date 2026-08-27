@@ -45,6 +45,7 @@ export const S00: Scene = {
   register: 'A',
   viewports: 1,
   palette: P_TITLE,
+  ambience: ['gota'],
 
   draw({ progress, time, registers }: SceneFrame): void {
     const c = P_TITLE.colors;

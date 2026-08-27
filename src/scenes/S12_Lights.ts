@@ -73,6 +73,7 @@ export const S12: Scene = {
   viewports: 2,
   pinned: true,
   palette: P_HALL,
+  ambience: ['passos'],
 
   enter(): void {
     world ??= buildCorridor();

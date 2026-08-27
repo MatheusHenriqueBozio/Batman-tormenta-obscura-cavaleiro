@@ -6,6 +6,7 @@
  * todas as outras são descartadas.
  */
 
+import { AUDIO } from './audio';
 import { Registers } from '../visual/registers';
 import { SCENE_PALETTES } from '../visual/palettes';
 import { Input } from './input';
@@ -43,6 +44,8 @@ export class Engine {
   private readonly loading = new Set<string>();
   private readonly states = new Map<string, Record<string, unknown>>();
   private blocks: TextBlock[] = [];
+  /** A cena cuja ambiência está tocando. Evita reiniciar o laço a cada quadro. */
+  private soando: string | null = null;
   /**
    * A cena que está segurando o leitor.
    *
@@ -96,6 +99,8 @@ export class Engine {
     window.removeEventListener('resize', this.handleResize);
     this.input.detach();
     this.director.detach();
+    AUDIO.pararTudo();
+    this.soando = null;
     for (const [, scene] of this.loaded) scene.exit?.();
     this.loaded.clear();
   }
@@ -163,6 +168,7 @@ export class Engine {
       input: this.input,
       state,
       reduced: this.reduced,
+      cue: (id) => AUDIO.disparar(id),
     };
   }
 
@@ -214,6 +220,11 @@ export class Engine {
     const scene = entry ? this.loaded.get(entry.id) : undefined;
 
     if (scene) {
+      // A ambiência troca quando a cena troca, e não a cada quadro.
+      if (this.soando !== scene.id) {
+        this.soando = scene.id;
+        AUDIO.definirAmbiencia(scene.ambience ?? []);
+      }
       scene.draw(this.frameFor(scene, now, dt));
     } else if (entry) {
       // Ainda carregando: pinta o vazio da paleta da cena, nunca branco.

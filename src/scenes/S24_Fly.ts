@@ -24,6 +24,7 @@ export const S24: Scene = {
   register: 'B',
   viewports: 3,
   palette: P_END,
+  ambience: ['vento'],
 
   draw({ progress, registers }: SceneFrame): void {
     const t = clamp(progress);

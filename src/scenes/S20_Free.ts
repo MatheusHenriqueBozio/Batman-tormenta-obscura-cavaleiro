@@ -37,6 +37,7 @@ export const S20: Scene = {
   register: 'C',
   viewports: 2,
   palette: P_HALL,
+  ambience: ['passos'],
 
   enter(): void {
     world ??= buildCorridor();
