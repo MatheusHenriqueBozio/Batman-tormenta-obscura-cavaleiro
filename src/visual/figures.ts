@@ -138,3 +138,53 @@ export function ajoelhado(
   ctx.closePath();
   ctx.fill();
 }
+
+/**
+ * Uma pessoa de pé, por massa. Sem capa, sem orelha, sem nada que a torne
+ * personagem — é a forma de alguém parado.
+ *
+ * Os pais da S16 usam isto. O horror daquela cena não é que eles sejam
+ * monstros: é que eles estão calmos, distantes, imóveis e íntegros. Uma forma
+ * humana comum é exatamente o que a cena precisa, e qualquer deformidade a
+ * estragaria.
+ */
+export function pessoa(
+  ctx: CanvasRenderingContext2D,
+  cx: number,
+  baseY: number,
+  h: number,
+): void {
+  const p = (x: number, y: number): [number, number] => [cx + x * h, baseY - y * h];
+
+  const meia: Array<[number, number]> = [
+    [-0.055, 0],
+    [-0.06, 0.3],
+    [-0.085, 0.4],
+    [-0.105, 0.52],
+    [-0.115, 0.74],
+    [-0.1, 0.8],
+    [-0.05, 0.84],
+    [-0.045, 0.92],
+    [-0.02, 0.97],
+  ];
+
+  ctx.beginPath();
+  const q = p(...meia[0]);
+  ctx.moveTo(q[0], q[1]);
+  for (let i = 1; i < meia.length; i++) {
+    const r = p(...meia[i]);
+    ctx.lineTo(r[0], r[1]);
+  }
+  for (let i = meia.length - 1; i >= 0; i--) {
+    const r = p(-meia[i][0], meia[i][1]);
+    ctx.lineTo(r[0], r[1]);
+  }
+  ctx.closePath();
+  ctx.fill();
+
+  // A cabeça, separada do corpo pelo pescoço.
+  const [hx, hy] = p(0, 1.02);
+  ctx.beginPath();
+  ctx.ellipse(hx, hy, h * 0.056, h * 0.066, 0, 0, Math.PI * 2);
+  ctx.fill();
+}

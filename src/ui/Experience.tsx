@@ -114,6 +114,7 @@ export default function Experience(): JSX.Element {
                   `bloco--${b.register.toLowerCase()}`,
                   b.at ? 'bloco--solto' : `bloco--${b.place ?? 'left'}`,
                   b.size ? `bloco--${b.size}` : '',
+                  b.deform ? 'bloco--deforma' : '',
                 ]
                   .filter(Boolean)
                   .join(' ')}
