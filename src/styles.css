@@ -1,0 +1,259 @@
+/**
+ * Tipografia e superfície — DIRECAO.md §8.
+ *
+ * Duas famílias, uma por registro. Nenhuma vem de CDN: o Registro A usa a
+ * fonte bitmap desenhada em código, dentro do canvas, e o texto em DOM usa
+ * pilhas do próprio sistema. Zero requisição externa, zero arquivo de fonte.
+ *
+ * Quando houver uma sans subsetada local, ela entra em --fonte-b e nada mais
+ * precisa mudar.
+ */
+
+:root {
+  --preto: #04060a;
+  --ciano: #4fd6e0;
+  --ciano-baixo: #1d5b63;
+  --texto: #c8d4dc;
+  --texto-baixo: #5d6c78;
+
+  --fonte-a: ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, Consolas, monospace;
+  --fonte-b: system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+
+  --lida: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--preto);
+  color: var(--texto);
+}
+
+body {
+  /* A obra é preta de ponta a ponta; o overscroll não pode revelar branco. */
+  overscroll-behavior-y: none;
+}
+
+#root {
+  isolation: isolate;
+}
+
+/* O canvas único. Fica parado; quem se move é o mundo dentro dele. */
+.stage {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 0;
+  background: var(--preto);
+}
+
+/* A trilha só existe para dar altura de rolagem a cada cena. */
+.track {
+  position: relative;
+  z-index: 1;
+}
+
+.track__scene {
+  position: relative;
+  width: 100%;
+}
+
+/* ------------------------------------------------------------------ *
+ * Blocos de texto.
+ *
+ * O texto não entra com fade-up. Ele simplesmente está no frame seguinte,
+ * como um balão de quadrinho (§8). Por isso: sem transition, sem transform,
+ * sem opacidade animada. Presença é binária.
+ * ------------------------------------------------------------------ */
+.bloco {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  max-width: 24rem;
+  visibility: hidden;
+  z-index: 2;
+}
+
+.bloco.is-present {
+  visibility: visible;
+}
+
+.bloco--left {
+  left: clamp(2.5rem, 7vw, 9rem);
+}
+
+.bloco--right {
+  right: clamp(2.5rem, 7vw, 9rem);
+  text-align: right;
+}
+
+.bloco--center {
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.bloco p {
+  margin: 0 0 1.1em;
+}
+
+.bloco p:last-child {
+  margin-bottom: 0;
+}
+
+/* Registro A — mundo. Monoespaçada, discreta, sem peso. */
+.bloco--a {
+  font-family: var(--fonte-a);
+  font-size: 0.95rem;
+  line-height: 1.85;
+  letter-spacing: 0.01em;
+  color: var(--texto);
+  text-shadow: 0 1px 6px rgba(4, 6, 10, 0.9);
+}
+
+/* Registro B — mente. Sans de peso alto, apertada, sem serifa e sem sombra. */
+.bloco--b {
+  font-family: var(--fonte-b);
+  font-size: clamp(1.6rem, 2.6vw, 2.6rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  color: #efefe9;
+}
+
+/* Enquanto o texto original não chegou. Sai junto com o `placeholder: true`. */
+.bloco--pendente p {
+  color: var(--texto-baixo);
+  font-style: italic;
+  border-left: 1px dashed var(--ciano-baixo);
+  padding-left: 0.9em;
+}
+
+/* ------------------------------------------------------------------ *
+ * Indicador de leitura: uma linha fina na borda, quase invisível (§16).
+ * ------------------------------------------------------------------ */
+.lida {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 100vh;
+  z-index: 3;
+  background: var(--ciano-baixo);
+  opacity: 0.28;
+  transform: scaleY(var(--lida));
+  transform-origin: top;
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------------ *
+ * Retomar sim, pular não (§16). Nada de menu de capítulos.
+ * ------------------------------------------------------------------ */
+.retomar {
+  position: fixed;
+  bottom: 2.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  display: flex;
+  gap: 1.4rem;
+  align-items: baseline;
+}
+
+.retomar button {
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  font-family: var(--fonte-a);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  color: var(--ciano);
+}
+
+.retomar button:hover {
+  color: #7fe4ec;
+}
+
+.retomar__nao {
+  color: var(--texto-baixo) !important;
+}
+
+.retomar__nao:hover {
+  color: var(--texto) !important;
+}
+
+/* ------------------------------------------------------------------ *
+ * Gate desktop (§4). Leve, sem motion pesado.
+ * ------------------------------------------------------------------ */
+.gate {
+  min-height: 100vh;
+  display: grid;
+  place-content: center;
+  gap: 1.5rem;
+  padding: 2rem;
+  background: var(--preto);
+}
+
+.gate__canvas {
+  width: min(90vw, 640px);
+  height: auto;
+  image-rendering: pixelated;
+}
+
+/* O canvas já diz isto. O parágrafo existe para leitor de tela. */
+.gate__fallback {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.carregando {
+  position: fixed;
+  inset: 0;
+  background: var(--preto);
+}
+
+::selection {
+  background: var(--ciano-baixo);
+  color: #eaf7f9;
+}
+
+/* ------------------------------------------------------------------ *
+ * Bancada de validação dos registros (§3). Fora da obra.
+ * ------------------------------------------------------------------ */
+.validar__controles {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  z-index: 5;
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  font-family: var(--fonte-a);
+}
+
+.validar__controles button {
+  background: none;
+  border: 1px solid var(--ciano-baixo);
+  color: var(--ciano-baixo);
+  padding: 0.3rem 0.7rem;
+  font-family: inherit;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.validar__controles button[data-ativo='true'] {
+  border-color: var(--ciano);
+  color: var(--ciano);
+}
