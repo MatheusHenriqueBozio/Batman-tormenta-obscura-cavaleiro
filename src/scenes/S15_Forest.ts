@@ -77,6 +77,7 @@ export const S15: Scene = {
   viewports: 3,
   pinned: true,
   palette: P_FOREST,
+  ambience: ['floresta'],
 
   draw({ progress, registers, input, dt, state, reduced }: SceneFrame): void {
     const t = clamp(progress);

@@ -21,6 +21,7 @@ export const S04: Scene = {
   register: 'A',
   viewports: 2,
   palette: P_CAVE,
+  ambience: ['gota', 'hum'],
 
   enter(): void {
     world ??= buildCave();

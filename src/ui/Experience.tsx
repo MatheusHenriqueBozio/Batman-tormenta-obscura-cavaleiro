@@ -18,6 +18,7 @@ import {
 import { blocksOf } from '../content/narrative';
 import { inkOf, SCENE_PALETTES } from '../visual/palettes';
 import { SCENES } from '../scenes';
+import MuteButton from './MuteButton';
 
 function prefersReducedMotion(): boolean {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -161,6 +162,8 @@ export default function Experience(): JSX.Element {
       </div>
 
       <div className="lida" aria-hidden="true" />
+
+      <MuteButton />
 
       {debug && <div className="depuracao" ref={debugRef} aria-hidden="true" />}
 

@@ -9,6 +9,7 @@
  * para trás, o mundo volta. Isso ensina, sem texto, que o scroll é tempo.
  */
 
+import type { SoundId } from './audio';
 import type { Palette, Register } from '../visual/palettes';
 import type { Registers } from '../visual/registers';
 import type { Input } from './input';
@@ -27,6 +28,13 @@ export interface SceneFrame {
   state: Record<string, unknown>;
   /** O leitor pediu menos movimento. */
   reduced: boolean;
+  /**
+   * Efeitos pontuais. A ambiência é declarada pela cena e o motor cuida dela;
+   * isto aqui é para o que acontece num instante — a batida na porta da S13.
+   *
+   * Sem arquivo de som registrado, chamar isto não faz nada e não custa nada.
+   */
+  cue(id: SoundId): void;
 }
 
 export interface Scene {
@@ -37,6 +45,14 @@ export interface Scene {
   readonly palette: Palette;
   /** A cena fica presa enquanto o scroll corre. */
   readonly pinned?: boolean;
+  /**
+   * O que soa enquanto esta cena está ativa — DIRECAO.md §22.
+   *
+   * A cena declara, o motor liga e desliga. Nenhuma cena toca som sozinha, e
+   * nenhuma precisa saber se existe arquivo: som é acréscimo, e a obra roda
+   * idêntica sem ele.
+   */
+  readonly ambience?: readonly SoundId[];
   draw(f: SceneFrame): void;
   /**
    * Até onde o leitor pode avançar dentro desta cena, de 0 a 1.

@@ -39,6 +39,7 @@ export const S23: Scene = {
   register: 'B',
   viewports: 4,
   palette: P_SHIP,
+  ambience: ['vento'],
 
   draw({ progress, registers, input, dt }: SceneFrame): void {
     const t = clamp(progress);

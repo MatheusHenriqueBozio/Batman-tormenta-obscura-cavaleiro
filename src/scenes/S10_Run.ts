@@ -60,6 +60,7 @@ export const S10: Scene = {
   viewports: 2,
   pinned: true,
   palette: P_RUN,
+  ambience: ['passos'],
 
   enter(): void {
     skyline ??= buildSkyline();

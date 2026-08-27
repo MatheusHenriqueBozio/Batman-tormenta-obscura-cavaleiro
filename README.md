@@ -50,7 +50,24 @@ Fase 6: uma passada de ritmo, sem código novo.
 | S11 | O Corredor | A degradando | S24 | Voar | B dessaturando |
 | S12 | Luzes | A/C | S25 | Créditos | A |
 
-O que ficou para a passada de ritmo está em [`FASE-6-RITMO.md`](FASE-6-RITMO.md).
+O que ficou para a passada de ritmo está em [`FASE-6-RITMO.md`](FASE-6-RITMO.md),
+junto com a varredura do §23 — o critério de pronto — feita com a obra montada.
+
+### Som
+
+A arquitetura da §22 está pronta, e **a V1 não tem um único arquivo de áudio**.
+As cenas já declaram o que soaria nelas (`ambience` no objeto da cena, e `cue`
+para efeitos pontuais), mas o catálogo em `src/engine/audio.ts` está vazio: cada
+declaração é um `no-op` enquanto não houver arquivo.
+
+Para acrescentar som: ponha os arquivos em `public/audio/` e registre-os em
+`CATALOGO`. O botão de mute aparece sozinho a partir do primeiro registro, e
+nenhuma cena precisa mudar.
+
+Três regras que o desenho respeita e que não devem ser afrouxadas: nunca
+autoplay (o padrão é mudo e nada é buscado da rede antes de um gesto do
+leitor), nunca exigido (arquivo que falta, que falha ou que o navegador recusa
+tocar são tratados em silêncio), e a escolha de mute persiste entre sessões.
 
 ### Modo de depuração
 
@@ -145,6 +162,7 @@ src/
     Feed.ts          microgame central — Lutar Piora (S18)
     Ship.ts          microgame 5 — O Navio (S23)
   engine/
+    audio.ts         a arquitetura de som (§22). Sem arquivos na V1
     canvas.ts        o motor: um canvas, um rAF, um registro de cenas
     scroll.ts        faixas de rolagem, progresso e retomada
     input.ts         teclado
@@ -152,6 +170,7 @@ src/
     math.ts          utilidades numéricas
   ui/
     Experience.tsx   canvas, trilha de rolagem e texto em DOM
+    MuteButton.tsx   o botão de som, que só existe quando existe som
     MobileGate.tsx   o gate desktop
 ```
 
