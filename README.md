@@ -28,11 +28,12 @@ npm run preview  # confere o build de produção localmente
 npm run og       # regera a imagem de preview e o favicon
 ```
 
-## Estado atual — Fase 2
+## Estado atual — Fase 3
 
-O trabalho é dividido em fases (`DIRECAO.md` §3 e `CLAUDE.md`). As fases 1 e 2
-entregam o setup, o sistema visual da Parte II, e as cenas **S00 a S09** —
-incluindo o primeiro microgame e as duas conversas em sprite.
+O trabalho é dividido em fases (`DIRECAO.md` §3 e `CLAUDE.md`). As fases 1 a 3
+entregam o setup, o sistema visual da Parte II, e as cenas **S00 a S14** —
+incluindo os dois primeiros microgames, o trecho jogável e as duas conversas
+em sprite.
 
 | Cena | Título | Registro | Estado |
 |---|---|---|---|
@@ -46,7 +47,12 @@ incluindo o primeiro microgame e as duas conversas em sprite.
 | S07 | A Mola — **microgame 1** | B | pronta |
 | S08 | Interlúdio | limiar | pronta |
 | S09 | Alfred | A | pronta |
-| S10–S25 | — | — | fases 3 a 5 |
+| S10 | A Corrida — **jogável** | A | pronta |
+| S11 | O Corredor | A degradando | pronta |
+| S12 | Luzes | A/C | pronta |
+| S13 | Toc. Toc. — **microgame 2** | A | pronta |
+| S14 | A Luz Tentadora | limiar | pronta |
+| S15–S25 | — | — | fases 4 e 5 |
 
 ### O texto
 
@@ -91,11 +97,13 @@ src/
     palettes.ts      paletas por cena
     grain.ts         ruído, grão, desalinhamento e massas por limiar
     sprites.ts       sprites e retratos, escritos como mapas de pixel
+    figures.ts       figuras por massa, para o Registro B
     bitfont.ts       a fonte bitmap do Registro A
     dialoguebox.ts   a caixa de diálogo: paginação e revelação
   scenes/
     index.ts         o registro de cenas, em ordem narrativa
     cave.ts          a Batcaverna, compartilhada por S01, S02 e S04
+    corridor.ts      o corredor, compartilhado por S11, S12, S13 e S20
     dialoguescene.ts a gramática comum das conversas (S06 e S09)
     S00_Title.ts     uma por cena, nomeada pelo ID
     S01_Cave.ts
@@ -107,8 +115,15 @@ src/
     S07_Spring.ts
     S08_Interlude.ts
     S09_Alfred.ts
+    S10_Run.ts
+    S11_Hallway.ts
+    S12_Lights.ts
+    S13_Knock.ts
+    S14_Light.ts
   games/
     Confirm.ts       microgame 1 — A Confirmação (S07)
+    Run.ts           a corrida (S10)
+    Knock.ts         microgame 2 — Toc. Toc. (S13)
   engine/
     canvas.ts        o motor: um canvas, um rAF, um registro de cenas
     scroll.ts        faixas de rolagem, progresso e retomada
@@ -143,6 +158,12 @@ projeto — a rocha nasce de ruído, os sprites são mapas de pixel escritos à 
 a fonte bitmap é uma tabela de glifos, e até a imagem de preview e o favicon
 saem de `npm run og`, que importa os mesmos módulos que a obra usa em execução.
 Nenhuma fonte vem de CDN. Nenhuma requisição externa.
+
+**O limiar é uma função só.** A passagem entre os dois registros dilata o
+pixel e colapsa a paleta ao mesmo tempo, e é a mesma função em todas as seis
+travessias da obra. A S14 é a primeira a usá-la para valer: o corredor não é
+redesenhado, ele apenas recebe uma paleta que vai virando preto e amarelo
+enquanto o grid cresce até virar mancha.
 
 **O scroll pode ser segurado, nunca sequestrado.** Uma cena declara até onde o
 leitor pode avançar — é assim que a conversa com a Bárbara espera o Enter e que

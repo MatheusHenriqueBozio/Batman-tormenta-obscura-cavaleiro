@@ -140,9 +140,10 @@ export const P_HALL = palette('hall', 'A', {
   purpleDeep: '#120a1c',
   purpleDark: '#1d1030',
   purpleMid: '#2e1a4a',
-  purpleLit: '#452a6b',
-  purpleGlow: '#6b47a0',
+  purpleLit: '#33204f',
+  purpleGlow: '#4e3275',
   figureDark: '#030206',
+  pale: '#c9c4b4',
 });
 
 /** S14 — A luz. Preto + amarelo. Registro C (limiar). */
@@ -264,6 +265,34 @@ export function mix(a: string, b: string, t: number): string {
   const g = Math.round(ag + (bg - ag) * k);
   const bl = Math.round(ab + (bb - ab) * k);
   return `#${((r << 16) | (g << 8) | bl).toString(16).padStart(6, '0')}`;
+}
+
+/** Luminância aproximada de uma cor, de 0 a 1. */
+function luma(hex: string): number {
+  const [r, g, b] = rgb(hex);
+  return (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+}
+
+/**
+ * Colapsa uma paleta inteira em direção a duas cores — DIRECAO.md §5.
+ *
+ * Cada cor vai para o extremo escuro ou para o extremo claro conforme a
+ * própria luminância, e o resultado continua sendo uma paleta com as mesmas
+ * chaves. É isso que permite atravessar o limiar sem que a cena precise
+ * trocar de código: ela desenha o mesmo corredor de sempre, e a paleta que
+ * recebe é que vai virando outra coisa.
+ *
+ * A S14 usa isto para o corredor virar preto e amarelo enquanto o pixel
+ * dilata, que é o Registro C acontecendo nas duas dimensões ao mesmo tempo:
+ * o espaço perde o grid e a cor perde a variedade.
+ */
+export function collapseTo(p: Palette, dark: string, light: string, t: number): Palette {
+  const k = Math.max(0, Math.min(1, t));
+  const colors: Record<string, string> = {};
+  for (const [key, hex] of Object.entries(p.colors)) {
+    colors[key] = mix(hex, luma(hex) < 0.22 ? dark : light, k);
+  }
+  return { id: `${p.id}→${t.toFixed(2)}`, register: 'C', colors };
 }
 
 /**

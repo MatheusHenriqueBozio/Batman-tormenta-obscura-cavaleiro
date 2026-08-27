@@ -15,6 +15,7 @@
 import { applyGrain, misregister } from '../visual/grain';
 import { P_IDIOT } from '../visual/palettes';
 import type { Scene, SceneFrame } from '../engine/scene';
+import { silhueta } from '../visual/figures';
 import { clamp, range } from '../engine/math';
 
 /** Quantas vezes a segunda silhueta atravessa a primeira. */
@@ -23,55 +24,6 @@ const CROSSINGS = 5;
 const JASON_AT = 2;
 /** Largura da janela em que ela existe. Três ou quatro quadros de scroll. */
 const JASON_WINDOW = 0.007;
-
-interface Shape {
-  /** Altura da figura em pixels de tela. */
-  h: number;
-  /** Capa curta: a forma errada. */
-  short?: boolean;
-}
-
-/**
- * A silhueta, por massa. Sem contorno, sem anatomia, sem acabamento — só o
- * recorte. É construída em unidades da própria altura, então a mesma função
- * serve a uma figura de 12px e a uma que ocupa a tela inteira.
- */
-function silhueta(ctx: CanvasRenderingContext2D, cx: number, baseY: number, s: Shape): void {
-  const { h, short = false } = s;
-  // A capa curta da forma errada: nasce mais alto e abre menos.
-  const hem = short ? 0.42 : 0.09;
-  const wing = short ? 0.20 : 0.30;
-  const p = (x: number, y: number): [number, number] => [cx + x * h, baseY - y * h];
-
-  const meia: Array<[number, number]> = [
-    [-0.09, 0],
-    [-0.11, hem * 0.7],
-    [-wing, hem],
-    [-wing * 0.87, 0.34],
-    [-wing * 0.93, 0.52],
-    [-0.22, 0.72],
-    [-0.20, 0.8],
-    [-0.085, 0.83],
-    [-0.085, 0.97],
-    [-0.13, 1.1],
-    [-0.045, 0.99],
-  ];
-
-  ctx.beginPath();
-  const primeiro = p(...meia[0]);
-  ctx.moveTo(primeiro[0], primeiro[1]);
-  for (let i = 1; i < meia.length; i++) {
-    const q = p(...meia[i]);
-    ctx.lineTo(q[0], q[1]);
-  }
-  // O lado direito é o espelho do esquerdo: a figura nunca entorta.
-  for (let i = meia.length - 1; i >= 0; i--) {
-    const q = p(-meia[i][0], meia[i][1]);
-    ctx.lineTo(q[0], q[1]);
-  }
-  ctx.closePath();
-  ctx.fill();
-}
 
 export const S03: Scene = {
   id: 'S03',
