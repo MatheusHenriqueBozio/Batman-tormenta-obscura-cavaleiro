@@ -6,7 +6,7 @@
  * scroll a altura de cada cena — elas não desenham nada.
  */
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
 import { Engine } from '../engine/canvas';
 import {
   clearProgress,
@@ -16,6 +16,7 @@ import {
   type SavedProgress,
 } from '../engine/scroll';
 import { blocksOf } from '../content/narrative';
+import { inkOf, SCENE_PALETTES } from '../visual/palettes';
 import { SCENES } from '../scenes';
 
 function prefersReducedMotion(): boolean {
@@ -94,7 +95,13 @@ export default function Experience(): JSX.Element {
             key={entry.id}
             data-section={entry.id}
             className="track__scene"
-            style={{ height: `${viewportsOf(entry, reduced) * 100}vh` }}
+            style={
+              {
+                height: `${viewportsOf(entry, reduced) * 100}vh`,
+                // A cena empresta a própria cor ao texto solto do Registro B.
+                '--tinta': inkOf(SCENE_PALETTES[entry.id]),
+              } as CSSProperties
+            }
           >
             {blocksOf(entry.id).map((b) => (
               <div
@@ -105,14 +112,17 @@ export default function Experience(): JSX.Element {
                 className={[
                   'bloco',
                   `bloco--${b.register.toLowerCase()}`,
-                  `bloco--${b.place ?? 'left'}`,
-                  b.placeholder ? 'bloco--pendente' : '',
+                  b.at ? 'bloco--solto' : `bloco--${b.place ?? 'left'}`,
+                  b.size ? `bloco--${b.size}` : '',
                 ]
                   .filter(Boolean)
                   .join(' ')}
+                style={b.at ? { left: `${b.at.x}%`, top: `${b.at.y}%` } : undefined}
               >
-                {b.paragraphs.map((text, i) => (
-                  <p key={i}>{text}</p>
+                {b.lines.map((l, i) => (
+                  <p key={i} className={`linha linha--${l.kind}`}>
+                    {l.text}
+                  </p>
                 ))}
               </div>
             ))}

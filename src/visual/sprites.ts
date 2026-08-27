@@ -178,6 +178,262 @@ export const BAT_FRAMES: readonly Sprite[] = [
 ];
 
 /**
+ * Legenda de figura com pele e roupa. Os retratos precisam distinguir três
+ * pessoas em 32×32: só silhueta não basta, e cor de silhueta em rosto some.
+ */
+const FIGURE_SKIN = {
+  d: 'figureDark',
+  m: 'figureMid',
+  e: 'figureEdge',
+  h: 'hair',
+  s: 'skin',
+  c: 'cloth',
+};
+
+/**
+ * Bruce de frente, como o leitor o vê nas cenas de conversa. Os dois vãos
+ * claros na máscara são a única coisa que o rosto entrega — no Registro A não
+ * há espaço para expressão, e a cena não precisa de expressão nenhuma.
+ */
+export const BATMAN_FRONT: Sprite = sprite(
+  [
+    '...d........d...',
+    '...dd......dd...',
+    '...ddd....ddd...',
+    '....dddddddd....',
+    '....dddddddd....',
+    '....deeddeed....',
+    '....dddddddd....',
+    '.....mmmmmm.....',
+    '...dddddddddd...',
+    '..edddddddddde..',
+    '..edddddddddde..',
+    '..edddddddddde..',
+    '..edddddddddde..',
+    '..edddddddddde..',
+    '..edddddddddde..',
+    '...edddddddde...',
+    '...edddddddde...',
+    '...edddddddde...',
+    '....dddddddd....',
+    '....dd....dd....',
+    '....dd....dd....',
+    '....dd....dd....',
+    '...ddd....ddd...',
+    '...ddd....ddd...',
+  ],
+  FIGURE,
+);
+
+/**
+ * Bárbara na base dela, sentada diante do console. A cadeira faz parte da
+ * silhueta porque faz parte dela — não é assunto da cena, e por isso não
+ * recebe destaque nenhum: entra como qualquer outra linha do desenho.
+ */
+export const BARBARA: Sprite = sprite(
+  [
+    '..........h...........',
+    '........hhhhh.........',
+    '.......hhssshh........',
+    '.......hsssssh........',
+    '.......hsssssh........',
+    '.......hsssssh........',
+    '.......hhssshh........',
+    '........hsssh.........',
+    '.........sss..........',
+    '......cccccccee.......',
+    '......cccccccee.......',
+    '......cccccccee.......',
+    '......cccccccee.......',
+    '......cccccccee.......',
+    '......cccccccee.......',
+    '.....ecccccccee.......',
+    '....eccccccccce.......',
+    '...eeccccccccce.......',
+    '...eeeeeeeeeeee.......',
+    '...eeeeeeeeeee........',
+    '...ee.....ee..........',
+    '...eee...eee..........',
+    '....eeeeeee...........',
+    '.....eeeee............',
+  ],
+  FIGURE_SKIN,
+);
+
+/**
+ * Alfred de pé. A gramática é a mesma da Bárbara, mas o enquadramento da cena
+ * dele é mais fechado e a paleta mais quente: Bárbara foi clínica, Alfred é
+ * doméstico.
+ */
+export const ALFRED: Sprite = sprite(
+  [
+    '......hhhhh.....',
+    '......hhhhh.....',
+    '.....hhhhhhh....',
+    '.....hhhhhhh....',
+    '......sssss.....',
+    '......sssss.....',
+    '.......sss......',
+    '.......ss.......',
+    '....dddccddd....',
+    '...ddddccdddd...',
+    '...ddddccdddd...',
+    '...ddddccdddd...',
+    '...ddddccdddd...',
+    '...ddddccdddd...',
+    '...dddddddddd...',
+    '...dddddddddd...',
+    '...dddddddddd...',
+    '....dddddddd....',
+    '.....ddd.ddd....',
+    '.....ddd.ddd....',
+    '.....ddd.ddd....',
+    '.....ddd.ddd....',
+    '.....ddd.ddd....',
+    '.....ddd.ddd....',
+  ],
+  FIGURE_SKIN,
+);
+
+/* ------------------------------------------------------------------ *
+ * Retratos de 32×32 para a caixa de diálogo.
+ *
+ * São rostos, não ícones. Nenhum imita traço de artista nenhum: são massas de
+ * pixel construídas aqui, com o mínimo de informação que ainda distingue as
+ * três pessoas. Cada um é simétrico por construção — a metade da esquerda é
+ * espelhada, e é por isso que nenhum deles entorta.
+ * ------------------------------------------------------------------ */
+
+/** Bruce está mascarado: o retrato dele é o capuz, e não há pele a mostrar. */
+export const PORTRAIT_BRUCE: Sprite = sprite(
+  [
+    '................................',
+    '................................',
+    '......d..................d......',
+    '......dd................dd......',
+    '.....ddd................ddd.....',
+    '.....dddd..............dddd.....',
+    '.....ddddd............ddddd.....',
+    '.....dddddd..........dddddd.....',
+    '.....dddddddddddddddddddddd.....',
+    '.....dddddddddddddddddddddd.....',
+    '.....dddddddddddddddddddddd.....',
+    '.....dddddddddddddddddddddd.....',
+    '.....dddddddddddddddddddddd.....',
+    '.....dddddddddddddddddddddd.....',
+    '.....ddddeeeeddddddeeeedddd.....',
+    '.....ddddeeeeddddddeeeedddd.....',
+    '.....ddddeeeeddddddeeeedddd.....',
+    '.....dddddddddddddddddddddd.....',
+    '.....dddddddddddddddddddddd.....',
+    '.....dddddddddddddddddddddd.....',
+    '.....dddddddddddddddddddddd.....',
+    '......dddddddddddddddddddd......',
+    '.......dddddddddddddddddd.......',
+    '........dddddddddddddddd........',
+    '.........dddddddddddddd.........',
+    '..........dddddddddddd..........',
+    '...........dddddddddd...........',
+    '...........dddddddddd...........',
+    '............mmmmmmmm............',
+    '........mmmmmmmmmmmmmmmm........',
+    '.....mmmmmmmmmmmmmmmmmmmmmm.....',
+    '...mmmmmmmmmmmmmmmmmmmmmmmmmm...',
+  ],
+  FIGURE,
+);
+
+export const PORTRAIT_BARBARA: Sprite = sprite(
+  [
+    '................................',
+    '.........hhhhhhhhhhhhhh.........',
+    '.......hhhhhhhhhhhhhhhhhh.......',
+    '......hhhhhhhhhhhhhhhhhhhh......',
+    '.....hhhhhhhhhhhhhhhhhhhhhh.....',
+    '.....hhhhhhhhhhhhhhhhhhhhhh.....',
+    '.....hhhsssssssssssssssshhh.....',
+    '.....hhhsssssssssssssssshhh.....',
+    '.....hhhsssssssssssssssshhh.....',
+    '.....hhhsssssssssssssssshhh.....',
+    '.....hhhsssssssssssssssshhh.....',
+    '.....hhhsssssssssssssssshhh.....',
+    '.....hhhssddssssssssddsshhh.....',
+    '.....hhhssddssssssssddsshhh.....',
+    '.....hhhsssssssssssssssshhh.....',
+    '.....hhhsssssssssssssssshhh.....',
+    '.....hhhsssssssssssssssshhh.....',
+    '.....hhhsssssssssssssssshhh.....',
+    '.....hhhsssssddddddssssshhh.....',
+    '.....hhhsssssssssssssssshhh.....',
+    '.....hhhsssssssssssssssshhh.....',
+    '.....hhhsssssssssssssssshhh.....',
+    '......hhhsssssssssssssshhh......',
+    '.......hhhsssssssssssshhh.......',
+    '........hhhsssssssssshhh........',
+    '.........hhhhhhhhhhhhhh.........',
+    '..........hhsssssssshh..........',
+    '..........hhsssssssshh..........',
+    '............ssssssss............',
+    '.....cccccccccccccccccccccc.....',
+    '...cccccccccccccccccccccccccc...',
+    '...cccccccccccccccccccccccccc...',
+  ],
+  FIGURE_SKIN,
+);
+
+export const PORTRAIT_ALFRED: Sprite = sprite(
+  [
+    '................................',
+    '................................',
+    '.........hhhhhhhhhhhhhh.........',
+    '.......hhhhhhhhhhhhhhhhhh.......',
+    '......hhhhhhhhhhhhhhhhhhhh......',
+    '......hhsssssssssssssssshh......',
+    '......hhsssssssssssssssshh......',
+    '......hhsssssssssssssssshh......',
+    '......ssssssssssssssssssss......',
+    '......ssssssssssssssssssss......',
+    '......ssssssssssssssssssss......',
+    '......ssssssssssssssssssss......',
+    '......ssssddssssssssddssss......',
+    '......ssssddssssssssddssss......',
+    '......ssssssssssssssssssss......',
+    '......ssssssssssssssssssss......',
+    '......ssssssssssssssssssss......',
+    '......sshhhhhhhhhhhhhhhhss......',
+    '......ssssssssssssssssssss......',
+    '......ssssssssssssssssssss......',
+    '.......ssssssssssssssssss.......',
+    '.......ssssssssssssssssss.......',
+    '........ssssssssssssssss........',
+    '.........ssssssssssssss.........',
+    '..........ssssssssssss..........',
+    '...........ssssssssss...........',
+    '............ssssssss............',
+    '............ssssssss............',
+    '............ssssssss............',
+    '.....dddddddddddddddddddddd.....',
+    '...dddddddddddddddddddddddddd...',
+    '...dddddddddddddddddddddddddd...',
+  ],
+  FIGURE_SKIN,
+);
+
+/** Retratos por chave, como `dialogue.ts` os nomeia. */
+export const PORTRAITS: Record<string, Sprite> = {
+  bruce: PORTRAIT_BRUCE,
+  barbara: PORTRAIT_BARBARA,
+  alfred: PORTRAIT_ALFRED,
+};
+
+/** Sprites de corpo inteiro por chave. */
+export const FIGURES: Record<string, Sprite> = {
+  bruce: BATMAN_FRONT,
+  barbara: BARBARA,
+  alfred: ALFRED,
+};
+
+/**
  * Desenha um sprite no contexto do Registro A.
  *
  * `x` e `y` são o canto superior esquerdo, em pixels do canvas interno de

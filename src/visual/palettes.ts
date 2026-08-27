@@ -86,6 +86,9 @@ export const P_ORACLE = palette('oracle', 'A', {
   figureDark: '#050807',
   figureMid: '#0f1a15',
   figureEdge: '#22362c',
+  hair: '#a85f2a',
+  skin: '#9b8570',
+  cloth: '#24382e',
 });
 
 /** S07 — A mola. Preto + azul elétrico. */
@@ -108,6 +111,9 @@ export const P_ALFRED = palette('alfred', 'A', {
   figureDark: '#070502',
   figureMid: '#1a1108',
   figureEdge: '#2e1f0e',
+  hair: '#8f857a',
+  skin: '#c49a72',
+  cloth: '#3a2a16',
 });
 
 /** S10 — A corrida. Azul-noite + silhueta preta. */
@@ -225,6 +231,18 @@ export const SCENE_PALETTES: Record<string, Palette> = {
   S24: P_END,
   S25: P_TITLE,
 };
+
+/**
+ * A cor com que a cena escreve.
+ *
+ * É a última cor declarada na paleta — por convenção, a mais clara. Assim o
+ * texto do Registro B nunca introduz uma terceira cor que a cena não tem: a
+ * S03 acusa em vermelho, a S05 fala em branco, a S07 confirma em azul.
+ */
+export function inkOf(p: Palette): string {
+  const cols = Object.values(p.colors);
+  return cols[cols.length - 1];
+}
 
 /** A paleta como array indexado, na ordem de declaração. */
 export function indexed(p: Palette): string[] {

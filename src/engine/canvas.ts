@@ -30,6 +30,16 @@ export class Engine {
   private readonly loading = new Set<string>();
   private readonly states = new Map<string, Record<string, unknown>>();
   private blocks: TextBlock[] = [];
+  /**
+   * A cena que está segurando o leitor.
+   *
+   * Precisa ser lembrada por nome, e não deduzida da cena ativa: um único
+   * giro de roda pula uma seção inteira, e nesse quadro a cena que queria
+   * segurar já não é a ativa — ninguém aplicaria o limite e o leitor
+   * escaparia. Enquanto este campo estiver preenchido, a cena continua
+   * carregada e continua sendo consultada.
+   */
+  private held: string | null = null;
   private raf = 0;
   private last = 0;
   private running = false;
@@ -104,6 +114,9 @@ export class Engine {
     const keep = new Set(
       [active - 1, active, active + 1].map((i) => this.entries[i]?.id).filter(Boolean) as string[],
     );
+    // Quem está segurando o leitor não pode ser descartado: é ela que sabe
+    // quando soltar.
+    if (this.held) keep.add(this.held);
     for (const [id, scene] of this.loaded) {
       if (!keep.has(id)) {
         scene.exit?.();
@@ -111,6 +124,58 @@ export class Engine {
         this.states.delete(id);
       }
     }
+  }
+
+  /** Monta o quadro que uma cena recebe. */
+  private frameFor(scene: Scene, now: number, dt: number): SceneFrame {
+    let state = this.states.get(scene.id);
+    if (!state) {
+      state = {};
+      this.states.set(scene.id, state);
+    }
+    return {
+      progress: this.director.progressOf(scene.id),
+      time: now,
+      dt,
+      palette: scene.palette,
+      registers: this.registers,
+      input: this.input,
+      state,
+      reduced: this.reduced,
+    };
+  }
+
+  /**
+   * Aplica o limite de rolagem da cena que estiver segurando o leitor.
+   *
+   * A cena ativa é consultada primeiro. Se ela pedir para segurar, passa a ser
+   * a cena que segura. Se uma outra já vinha segurando e o leitor escapou dela
+   * por um salto de rolagem, ela continua sendo consultada até soltar — e o
+   * limite traz o leitor de volta para dentro dela.
+   */
+  private applyHold(active: Scene | undefined, now: number, dt: number): void {
+    if (active) {
+      const teto = active.hold?.(this.frameFor(active, now, dt));
+      if (teto !== null && teto !== undefined) {
+        this.held = active.id;
+        this.director.clampTo(active.id, teto);
+        return;
+      }
+      if (this.held === active.id) this.held = null;
+    }
+
+    if (!this.held) return;
+    const seguradora = this.loaded.get(this.held);
+    if (!seguradora) {
+      this.held = null;
+      return;
+    }
+    const teto = seguradora.hold?.(this.frameFor(seguradora, now, dt));
+    if (teto === null || teto === undefined) {
+      this.held = null;
+      return;
+    }
+    this.director.clampTo(seguradora.id, teto);
   }
 
   private readonly tick = (now: number): void => {
@@ -128,27 +193,15 @@ export class Engine {
     const scene = entry ? this.loaded.get(entry.id) : undefined;
 
     if (scene) {
-      let state = this.states.get(scene.id);
-      if (!state) {
-        state = {};
-        this.states.set(scene.id, state);
-      }
-      const frame: SceneFrame = {
-        progress: this.director.progressOf(scene.id),
-        time: now,
-        dt,
-        palette: scene.palette,
-        registers: this.registers,
-        input: this.input,
-        state,
-        reduced: this.reduced,
-      };
-      scene.draw(frame);
+      scene.draw(this.frameFor(scene, now, dt));
     } else if (entry) {
       // Ainda carregando: pinta o vazio da paleta da cena, nunca branco.
       const p = SCENE_PALETTES[entry.id];
       this.registers.clear(p ? Object.values(p.colors)[0] : '#04060a');
     }
+
+    // A cena pode segurar o leitor. O motor não decide nada: só aplica.
+    this.applyHold(scene, now, dt);
 
     this.updateBlocks(entry?.id ?? '');
     this.director.save(now);

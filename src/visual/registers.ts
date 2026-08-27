@@ -91,7 +91,10 @@ export class Registers {
     this.a = document.createElement('canvas');
     this.a.width = A_W;
     this.a.height = A_H;
-    const ac = this.a.getContext('2d', { alpha: false });
+    // Com alfa: o Registro A normalmente pinta o próprio fundo, mas a S07
+    // precisa desenhar só a caixa de diálogo e blitá-la por cima do Registro
+    // B. Sem canal alfa, esse blit levaria junto um retângulo preto.
+    const ac = this.a.getContext('2d', { alpha: true });
     if (!ac) throw new Error('Canvas 2D indisponível.');
     this.aCtx = ac;
 
@@ -197,6 +200,19 @@ export class Registers {
       ctx.restore();
     }
     if (state && state.grain > 0) applyGrain(ctx, w, h, state.grain);
+  }
+
+  /**
+   * Abre o Registro A vazio, para sobrepor ao Registro B.
+   *
+   * Usado quando só um elemento do mundo — a caixa de diálogo da S07 — precisa
+   * voltar por cima da mente, sem trazer o cenário junto.
+   */
+  beginOverlayA(): CanvasRenderingContext2D {
+    this.aCtx.setTransform(1, 0, 0, 1, 0, 0);
+    this.aCtx.imageSmoothingEnabled = false;
+    this.aCtx.clearRect(0, 0, A_W, A_H);
+    return this.aCtx;
   }
 
   /**

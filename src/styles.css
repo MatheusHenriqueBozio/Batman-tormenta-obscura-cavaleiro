@@ -125,15 +125,43 @@ body {
   font-weight: 800;
   line-height: 1.08;
   letter-spacing: -0.025em;
-  color: #efefe9;
+  color: var(--tinta, #efefe9);
 }
 
-/* Enquanto o texto original não chegou. Sai junto com o `placeholder: true`. */
-.bloco--pendente p {
-  color: var(--texto-baixo);
-  font-style: italic;
-  border-left: 1px dashed var(--ciano-baixo);
-  padding-left: 0.9em;
+/*
+ * Frase solta do Registro B: posição livre em porcentagem do viewport.
+ * Algumas próximas e grandes, outras distantes e pequenas (§S05).
+ */
+.bloco--solto {
+  transform: translate(-50%, -50%);
+  max-width: 34vw;
+  text-align: center;
+}
+
+.bloco--p {
+  font-size: clamp(1.05rem, 1.4vw, 1.5rem);
+  opacity: 0.62;
+}
+
+.bloco--m {
+  font-size: clamp(1.5rem, 2.2vw, 2.2rem);
+}
+
+.bloco--g {
+  font-size: clamp(2.4rem, 4.2vw, 4.4rem);
+  line-height: 1;
+}
+
+/*
+ * Pensamento interno e fala. O texto do autor já traz as aspas e o travessão,
+ * então a marcação aqui é só de peso e cor — nada é acrescentado ao texto.
+ */
+.bloco--a .linha--pensamento {
+  color: #9fb2bf;
+}
+
+.bloco--a .linha--fala {
+  color: #dbe6ed;
 }
 
 /* ------------------------------------------------------------------ *

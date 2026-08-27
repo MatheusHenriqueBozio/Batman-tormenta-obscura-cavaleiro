@@ -38,6 +38,17 @@ export interface Scene {
   /** A cena fica presa enquanto o scroll corre. */
   readonly pinned?: boolean;
   draw(f: SceneFrame): void;
+  /**
+   * Até onde o leitor pode avançar dentro desta cena, de 0 a 1.
+   *
+   * Devolver `null` deixa o scroll livre. Devolver um número segura o leitor
+   * ali — é como a S06 espera o Enter e como a S07 trava a rolagem até o
+   * leitor parar de alimentar a confirmação.
+   *
+   * Segurar nunca impede voltar: só o limite de cima é aparado, então o
+   * leitor sempre consegue rolar para trás (§16).
+   */
+  hold?(f: SceneFrame): number | null;
   /** Chamada quando a cena entra na janela ativa. */
   enter?(): void;
   /** Chamada quando ela sai e é descartada. */
