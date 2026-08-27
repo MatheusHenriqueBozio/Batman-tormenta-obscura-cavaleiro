@@ -17,6 +17,15 @@ const SAVE_KEY = 'tormenta:progresso';
 /** Com movimento reduzido nenhuma cena passa disto. Sem pinning longo. */
 const REDUCED_MAX_VIEWPORTS = 1.5;
 
+/**
+ * Folga de uma viewport no fim da trilha.
+ *
+ * A página só rola até `altura - viewport`. Sem esta folga, a última cena
+ * pararia no meio do próprio progresso e o último parágrafo dela nunca
+ * apareceria. A folga não desenha nada: ela só devolve o curso que falta.
+ */
+export const TRAILING_SPACER = 1;
+
 export interface SavedProgress {
   sceneId: string;
   progress: number;
@@ -70,8 +79,16 @@ export class ScrollDirector {
       if (!el) return;
       const trigger = ScrollTrigger.create({
         trigger: el,
+        // A cena corre do momento em que o topo dela encosta no topo da tela
+        // até o momento em que o rodapé dela encosta no mesmo topo. Assim o
+        // progresso cobre a altura inteira da seção: uma cena de 5 viewports
+        // recebe 5 viewports de curso, e não 4.
+        //
+        // Isso só fecha porque a trilha termina com uma folga de uma viewport
+        // (ver `TRAILING_SPACER`). Sem ela a última cena jamais alcançaria o
+        // fim do próprio curso, porque a página para de rolar antes.
         start: 'top top',
-        end: 'bottom bottom',
+        end: 'bottom top',
         // `scrub` não é usado aqui de propósito: o progresso é lido direto,
         // sem suavização artificial, para que parar de rolar pare o mundo.
         onUpdate: (self) => {

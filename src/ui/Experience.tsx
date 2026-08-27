@@ -8,7 +8,13 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Engine } from '../engine/canvas';
-import { clearProgress, loadProgress, viewportsOf, type SavedProgress } from '../engine/scroll';
+import {
+  clearProgress,
+  loadProgress,
+  TRAILING_SPACER,
+  viewportsOf,
+  type SavedProgress,
+} from '../engine/scroll';
 import { blocksOf } from '../content/narrative';
 import { SCENES } from '../scenes';
 
@@ -112,6 +118,11 @@ export default function Experience(): JSX.Element {
             ))}
           </section>
         ))}
+        <div
+          className="track__folga"
+          aria-hidden="true"
+          style={{ height: `${TRAILING_SPACER * 100}vh` }}
+        />
       </div>
 
       <div className="lida" aria-hidden="true" />

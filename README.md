@@ -40,20 +40,18 @@ entrega o setup, o sistema visual da Parte II, e as cenas **S00, S01 e S02**.
 | S02 | Alguma Coisa Está Repetindo | A degradando | pronta |
 | S03–S25 | — | — | fases 2 a 5 |
 
-### O texto original ainda não está no repositório
+### O texto
 
-`DIRECAO.md` e `MAPA-DE-CENAS.md` citam a história por fragmentos ("do início
-até *'intenso e… Repetitivo.'*"), mas o arquivo com a história em si nunca
-chegou.
+A revisão 90/10 aprovada pelo autor está em [`TEXTO-REVISADO.md`](TEXTO-REVISADO.md),
+na raiz. Ele é a **fonte**: o texto das cenas é transferido de lá para
+`src/content/narrative.ts` sem alteração de uma palavra.
 
-A regra 90/10 (§9) diz que a história é do autor e que no máximo cerca de 10%
-pode mudar, e só estilisticamente — escrever a prosa seria uma reescrita de
-100%, exatamente o que a regra proíbe. Por isso os blocos de texto estão
-marcados como pendentes.
+As cenas S01 e S02 já estão preenchidas. As cenas S03 a S25 têm o texto pronto
+em `TEXTO-REVISADO.md` e entram no `narrative.ts` à medida que cada fase
+implementa as cenas correspondentes.
 
-**Para colar o texto:** abra `src/content/narrative.ts`, substitua o conteúdo de
-`paragraphs` pelo trecho revisado e apague o `placeholder: true` daquele bloco.
-Nada mais precisa mudar — nem cena, nem animação.
+Ao editar um parágrafo, edite nos dois lugares — as duas versões precisam
+continuar iguais.
 
 ---
 
