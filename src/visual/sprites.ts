@@ -434,6 +434,207 @@ export const FIGURES: Record<string, Sprite> = {
 };
 
 /**
+ * Bruce correndo, de perfil, para a S10. Quatro quadros.
+ *
+ * Aqui ele é silhueta pura: a S10 é a cena da travessia, e o que importa é a
+ * leitura do movimento, não o detalhe. A capa fica atrás do corpo e não o
+ * cobre — em 24px, capa por cima do tronco vira borrão.
+ */
+export const BATMAN_RUN: readonly Sprite[] = [
+  sprite(
+    [
+    '.......d............',
+    '.......dd...........',
+    '........ddddd.......',
+    '........dddddd......',
+    '.........ddddd......',
+    '........ddddddd.....',
+    '.........ddddd......',
+    '.........ddddd......',
+    '.........ddddd......',
+    '.........ddddd......',
+    '......ddddddddd.....',
+    '....dddddddddddd....',
+    '....dddddddddd......',
+    '...ddddddddddd......',
+    '...ddddddddddd......',
+    '..dddddddddddd......',
+    '..ddddddd..d........',
+    '.dddddddddd.dd......',
+    '.ddddddddd...dd.....',
+    '.......dd.....dd....',
+    '.......d.......d....',
+    '......dd.......dd...',
+    '......d.........d...',
+    '.....d..........dd..',
+    ],
+    FIGURE,
+  ),
+  sprite(
+    [
+    '.......d............',
+    '.......dd...........',
+    '........ddddd.......',
+    '........dddddd......',
+    '.........ddddd......',
+    '........ddddddd.....',
+    '.........ddddd......',
+    '.........ddddd......',
+    '.........ddddd......',
+    '.........ddddd......',
+    '.......ddddddd......',
+    '......dddddddd......',
+    '....dddddddddd......',
+    '....dddddddddd......',
+    '...ddddddddddd......',
+    '...ddddddddddd......',
+    '..ddddddd..d........',
+    '..ddddddd..d........',
+    '.ddddddd...d........',
+    '...........d........',
+    '..........dd........',
+    '..........dd........',
+    '.........ddd........',
+    '.........d.d........',
+    ],
+    FIGURE,
+  ),
+  sprite(
+    [
+    '.......d............',
+    '.......dd...........',
+    '........ddddd.......',
+    '........dddddd......',
+    '.........ddddd......',
+    '........ddddddd.....',
+    '.........ddddd......',
+    '.........ddddd......',
+    '.........ddddd......',
+    '.........ddddd......',
+    '......dddddddd......',
+    '....dddddddddd......',
+    '....dddddddddd......',
+    '...ddddddddddd......',
+    '...ddddddddddd......',
+    '..dddddddddddd......',
+    '..ddddddd..d........',
+    '.dddddddddd.dd......',
+    '.ddddddddd...dd.....',
+    '.......dd.....d.....',
+    '.......d.......d....',
+    '......dd.......d....',
+    '......d........d....',
+    '.....d.........d....',
+    ],
+    FIGURE,
+  ),
+  sprite(
+    [
+    '.......d............',
+    '.......dd...........',
+    '........ddddd.......',
+    '........dddddd......',
+    '.........ddddd......',
+    '........ddddddd.....',
+    '.........ddddd......',
+    '.........ddddd......',
+    '.........ddddd......',
+    '.........ddddd......',
+    '.......ddddddd......',
+    '......dddddddd......',
+    '....dddddddddd......',
+    '....dddddddddd......',
+    '...ddddddddddd......',
+    '...ddddddddddd......',
+    '..ddddddd..d........',
+    '..ddddddd..d........',
+    '.ddddddd...d........',
+    '...........d........',
+    '..........ddd.......',
+    '..........d.dd......',
+    '.........dd..d......',
+    '.........d...dd.....',
+    ],
+    FIGURE,
+  ),
+];
+
+/** Bruce de joelhos, mãos no chão. A postura da S14. */
+export const BATMAN_KNEEL: Sprite = sprite(
+  [
+    '........................',
+    '........................',
+    '........................',
+    '........................',
+    '........................',
+    '........................',
+    '..............d.........',
+    '.............dd.........',
+    '..........dddddd........',
+    '......ddddddddddd.......',
+    '...ddddddddddd.ddd......',
+    '...ddddddddddd..ddd.....',
+    '...ddddddddddddddddd....',
+    '..ddddddddddddddddddd...',
+    '..ddddddddddddddddddd...',
+    '..ddddddddddddddddddd...',
+    '..dddddddddddddddddd....',
+    '.ddddddddddddddddddd....',
+    '.ddddddddddddddddd.d....',
+    '.dddddddddd..dd....dd...',
+    '..............dd....d...',
+    '...............dd...dd..',
+    '........ddddddddddddddd.',
+    '........ddddddddddddddd.',
+  ],
+  FIGURE,
+);
+
+/**
+ * O Coringa. Casaco comprido, cabelo verde, rosto pálido, sorriso largo.
+ *
+ * Ele é pequeno e distante durante toda a S11, e só cresce na S12 — o sprite
+ * é o mesmo, o que muda é a escala com que a cena o desenha.
+ */
+const JOKER_LEGEND = {
+  d: 'figureDark',
+  s: 'pale',
+  h: 'greenGlow',
+  c: 'purpleMid',
+  e: 'purpleDeep',
+};
+
+export const CORINGA: Sprite = sprite(
+  [
+    '......hhhhh.....',
+    '.....hhhhhhh....',
+    '.....hhhhhhh....',
+    '....hhdhhhdhh...',
+    '.....sdsssds....',
+    '.....sssssss....',
+    '.....ddddddd....',
+    '.......sss......',
+    '.......sss......',
+    '....ccccccccc...',
+    '...cccceeecccc..',
+    '...cccceeecccc..',
+    '..ccccceeeccccc.',
+    '..ccccceeeccccc.',
+    '..ccccceeeccccc.',
+    '.cccccceeecccccc',
+    '.cccccceeecccccc',
+    '.cccccceeecccccc',
+    '.ccccccccccccccc',
+    '.ccccccccccccccc',
+    '................',
+    '.....ddd.ddd....',
+    '.....ddd.ddd....',
+    '.....ddd.ddd....',
+  ],
+  JOKER_LEGEND,
+);
+
+/**
  * Desenha um sprite no contexto do Registro A.
  *
  * `x` e `y` são o canto superior esquerdo, em pixels do canvas interno de
