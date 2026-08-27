@@ -28,12 +28,11 @@ npm run preview  # confere o build de produção localmente
 npm run og       # regera a imagem de preview e o favicon
 ```
 
-## Estado atual — Fase 3
+## Estado atual — Fase 4
 
-O trabalho é dividido em fases (`DIRECAO.md` §3 e `CLAUDE.md`). As fases 1 a 3
-entregam o setup, o sistema visual da Parte II, e as cenas **S00 a S14** —
-incluindo os dois primeiros microgames, o trecho jogável e as duas conversas
-em sprite.
+O trabalho é dividido em fases (`DIRECAO.md` §3 e `CLAUDE.md`). As fases 1 a 4
+entregam o setup, o sistema visual da Parte II, e as cenas **S00 a S19** —
+incluindo os quatro microgames, o trecho jogável e as duas conversas em sprite.
 
 | Cena | Título | Registro | Estado |
 |---|---|---|---|
@@ -52,7 +51,14 @@ em sprite.
 | S12 | Luzes | A/C | pronta |
 | S13 | Toc. Toc. — **microgame 2** | A | pronta |
 | S14 | A Luz Tentadora | limiar | pronta |
-| S15–S25 | — | — | fases 4 e 5 |
+| S15 | A Floresta — **microgame 3** | B | pronta |
+| S16 | Branco | B | pronta |
+| S17 | A Figura | B | pronta |
+| S18 | Lutar Piora — **microgame central** | B | pronta |
+| S19 | Levantar | B | pronta |
+| S20–S25 | — | — | fase 5 |
+
+O que ficou para a passada de ritmo está em [`FASE-6-RITMO.md`](FASE-6-RITMO.md).
 
 ### O texto
 
@@ -120,10 +126,17 @@ src/
     S12_Lights.ts
     S13_Knock.ts
     S14_Light.ts
+    S15_Forest.ts
+    S16_White.ts
+    S17_Figure.ts
+    S18_Feed.ts
+    S19_Rise.ts
   games/
     Confirm.ts       microgame 1 — A Confirmação (S07)
     Run.ts           a corrida (S10)
     Knock.ts         microgame 2 — Toc. Toc. (S13)
+    Forest.ts        microgame 3 — Seguir a Luz (S15)
+    Feed.ts          microgame central — Lutar Piora (S18)
   engine/
     canvas.ts        o motor: um canvas, um rAF, um registro de cenas
     scroll.ts        faixas de rolagem, progresso e retomada
@@ -158,6 +171,12 @@ projeto — a rocha nasce de ruído, os sprites são mapas de pixel escritos à 
 a fonte bitmap é uma tabela de glifos, e até a imagem de preview e o favicon
 saem de `npm run og`, que importa os mesmos módulos que a obra usa em execução.
 Nenhuma fonte vem de CDN. Nenhuma requisição externa.
+
+**Os microgames não confirmam nem punem.** A Floresta não diz que a direção
+está certa — é incerteza convertida em mecânica, e confirmar seria desmentir a
+cena. Lutar Piora oferece um botão e o botão é a armadilha, o que só funciona
+porque a corrida da S10 estabeleceu um SPACE honesto antes. Nenhum dos quatro
+tem tela de vitória, score ou moral escrita, e nenhum deixa o leitor preso.
 
 **O limiar é uma função só.** A passagem entre os dois registros dilata o
 pixel e colapsa a paleta ao mesmo tempo, e é a mesma função em todas as seis

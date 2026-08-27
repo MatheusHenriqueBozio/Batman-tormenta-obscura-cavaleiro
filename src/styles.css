@@ -164,6 +164,25 @@ body {
   color: #dbe6ed;
 }
 
+/*
+ * A caixa que deforma (§8). A cena escreve `--deformacao` de 0 a 1, e a
+ * tipografia vai perdendo legibilidade até virar forma sem sentido.
+ *
+ * Continua sendo texto do DOM: selecionável, e legível por leitor de tela até
+ * o fim. Quem perde a leitura são os olhos.
+ */
+.bloco--deforma {
+  --d: var(--deformacao, 0);
+  /* Cresce para dentro do quadro, e não para fora dele: um texto que escapa
+     pela borda não perdeu legibilidade, só saiu de cena. */
+  transform-origin: 100% 50%;
+  transform: translateY(-50%) scale(calc(1 + var(--d) * 0.7), calc(1 - var(--d) * 0.3))
+    skewX(calc(var(--d) * -12deg));
+  letter-spacing: calc(-0.025em + var(--d) * 0.42em);
+  filter: blur(calc(var(--d) * 5px));
+  opacity: calc(1 - var(--d) * 0.4);
+}
+
 /* ------------------------------------------------------------------ *
  * Indicador de leitura: uma linha fina na borda, quase invisível (§16).
  * ------------------------------------------------------------------ */
