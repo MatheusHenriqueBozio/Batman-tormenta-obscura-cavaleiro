@@ -15,7 +15,6 @@
  * Sem texto, sem som, sem destaque.
  */
 
-import { applyGrain } from '../visual/grain';
 import { P_CAVE } from '../visual/palettes';
 import { A_W } from '../visual/registers';
 import { BATMAN_BACK, BATMAN_WALK_CYCLE, drawSilhouette } from '../visual/sprites';
@@ -91,15 +90,11 @@ export const S02: Scene = {
 
     registers.presentA();
 
-    // "Registro A degradando": um fio de grão que sobe ao longo da cena e
-    // ainda fica abaixo da faixa do Registro B. Não é para ser percebido —
-    // é para ser sentido quando a S03 cortar seco.
-    if (!reduced) {
-      const decay = clamp(progress) * 0.03;
-      if (decay > 0.002) {
-        applyGrain(registers.mainCtx, registers.viewport.w, registers.viewport.h, decay);
-      }
-    }
+    // Aqui havia um grão de degradação subindo até 0,03. Medido quadro a
+    // quadro na tela, ele movia a imagem em 0,002 nível de 255 — ou seja, não
+    // acontecia. Um efeito que ninguém pode ver não é sutil, é um custo. E o
+    // Registro A não admite transparência parcial (§5): a degradação do
+    // mundo já está no que a cena faz, que é repetir.
   },
 };
 

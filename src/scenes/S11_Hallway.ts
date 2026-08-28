@@ -9,7 +9,6 @@
  * chegar nele, e é isso que o mantém distante.
  */
 
-import { applyGrain } from '../visual/grain';
 import { P_HALL } from '../visual/palettes';
 import { BATMAN_WALK_CYCLE, drawSilhouette } from '../visual/sprites';
 import { clamp } from '../engine/math';
@@ -33,7 +32,7 @@ export const S11: Scene = {
     world ??= buildCorridor();
   },
 
-  draw({ progress, registers, reduced }: SceneFrame): void {
+  draw({ progress, registers }: SceneFrame): void {
     const w = (world ??= buildCorridor());
     const c = P_HALL.colors;
     const ctx = registers.beginA(c.void);
@@ -58,14 +57,10 @@ export const S11: Scene = {
 
     registers.presentA();
 
-    // "Registro A degradando": um fio de grão que sobe ao longo do corredor.
-    // Não é para ser percebido — é para a S14 ter de onde vir.
-    if (!reduced) {
-      const decay = clamp(progress) * 0.025;
-      if (decay > 0.002) {
-        applyGrain(registers.mainCtx, registers.viewport.w, registers.viewport.h, decay);
-      }
-    }
+    // Aqui havia o mesmo grão de degradação da S02, e pela mesma medição ele
+    // saiu: no Registro A o efeito não aparece e o registro não o admite. O
+    // corredor já degrada pelo que é — madeira podre, luz em fatias, um
+    // sujeito que não se aproxima.
   },
 };
 

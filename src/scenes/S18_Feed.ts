@@ -15,7 +15,7 @@
  * tela de vitória, sem parabéns, sem moral.
  */
 
-import { applyGrain, fbm, misregister } from '../visual/grain';
+import { fbm, misregister } from '../visual/grain';
 import { silhueta } from '../visual/figures';
 import { P_VOID } from '../visual/palettes';
 import * as Feed from '../games/Feed';
@@ -135,8 +135,9 @@ export const S18: Scene = {
       ctx.globalAlpha = 1;
     }
 
-    registers.endB(0.07);
-    applyGrain(ctx, w, h, 0.02 + jogo.ataques * 0.006);
+    // O ruído sobe a cada golpe, numa passada só: somar uma segunda a um
+    // grão fixo não mudava a tela, e a faixa do registro dá conta da rampa.
+    registers.endB(Math.min(0.08, 0.05 + jogo.ataques * 0.004));
   },
 
   hold(f: SceneFrame): number | null {

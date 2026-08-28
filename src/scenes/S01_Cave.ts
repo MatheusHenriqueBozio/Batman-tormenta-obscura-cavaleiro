@@ -1,5 +1,5 @@
 /**
- * S01 — A CAVERNA · Registro A · 5 viewports · vertical lento
+ * S01 — A CAVERNA · Registro A · 4 viewports · vertical lento
  *
  * Abre quase preto, sem informação. A câmera desce conforme o scroll,
  * revelando a caverna de cima para baixo, como quem desce uma escada. Bruce é
@@ -27,7 +27,7 @@ let world: CaveWorld | null = null;
 export const S01: Scene = {
   id: 'S01',
   register: 'A',
-  viewports: 5,
+  viewports: 4,
   palette: P_CAVE,
   ambience: ['gota', 'hum'],
 

@@ -33,7 +33,7 @@ let fundoW = 0;
 export const S17: Scene = {
   id: 'S17',
   register: 'B',
-  viewports: 3,
+  viewports: 4.5,
   pinned: true,
   palette: P_VOID,
 

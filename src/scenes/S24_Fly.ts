@@ -22,7 +22,7 @@ const SOME_EM = 0.42;
 export const S24: Scene = {
   id: 'S24',
   register: 'B',
-  viewports: 3,
+  viewports: 2.5,
   palette: P_END,
   ambience: ['vento'],
 

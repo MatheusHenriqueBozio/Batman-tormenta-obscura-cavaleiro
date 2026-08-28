@@ -12,7 +12,7 @@
  * se nomeia, não se explica, não se volta a ela até a S14.
  */
 
-import { applyGrain, misregister } from '../visual/grain';
+import { misregister } from '../visual/grain';
 import { P_IDIOT } from '../visual/palettes';
 import type { Scene, SceneFrame } from '../engine/scene';
 import { silhueta } from '../visual/figures';
@@ -22,8 +22,16 @@ import { clamp, range } from '../engine/math';
 const CROSSINGS = 5;
 /** Em qual atravessamento a forma errada aparece. */
 const JASON_AT = 2;
-/** Largura da janela em que ela existe. Três ou quatro quadros de scroll. */
-const JASON_WINDOW = 0.007;
+/**
+ * Largura da janela em que a forma errada existe.
+ *
+ * Era 0,007, o que dava oito pixels de rolagem: menos de um décimo de um
+ * clique da roda do mouse. Uma aparição que ninguém alcança não é sutil, é
+ * inexistente. Em 0,05 ela ocupa uns sessenta pixels — ainda menos que um
+ * gesto, ainda perfeitamente perdível, mas agora alcançável por quem rola
+ * devagar. Ser notada na terceira leitura é o objetivo; ser impossível, não.
+ */
+const JASON_WINDOW = 0.05;
 
 export const S03: Scene = {
   id: 'S03',
@@ -67,10 +75,16 @@ export const S03: Scene = {
 
     // A segunda silhueta, atravessando. Ela não para: entra por um lado e sai
     // pelo outro, e o ciclo recomeça.
+    //
+    // A travessia acontece dentro da metade direita do quadro, e não de borda
+    // a borda. O comentário lá em cima já dizia que a esquerda é o lugar das
+    // acusações; o percurso é que não respeitava isso, e passava por cima das
+    // palavras — texto vermelho apagado por silhueta vermelha. O que a cena
+    // precisa é do vaivém, e o vaivém cabe inteiro deste lado.
     const t = progress * CROSSINGS;
     const fase = t - Math.floor(t);
     const direcao = Math.floor(t) % 2 === 0 ? 1 : -1;
-    const x = cx + direcao * (fase - 0.5) * w * 1.25;
+    const x = cx + direcao * (fase - 0.5) * w * 0.66;
     silhueta(ctx, x, baseY, { h: alt * 1.04 });
 
     // Jason. Três ou quatro quadros, e some. Menor, capa mais curta.
@@ -85,9 +99,12 @@ export const S03: Scene = {
       }
     }
 
-    registers.endB(0.07);
     // O grão sobe com o congestionamento: quanto mais cópias, mais ruído.
-    applyGrain(ctx, w, h, 0.02 * (feitos / CROSSINGS));
+    //
+    // A rampa era uma segunda passada somada a um grão fixo de 0,07, e nessa
+    // altura os 0,02 dela não moviam nada. Agora ela é a passada — 0,05 a
+    // 0,08, a faixa inteira do Registro B — e o ruído realmente sobe.
+    registers.endB(0.05 + 0.03 * (feitos / CROSSINGS));
   },
 };
 
