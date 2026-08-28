@@ -24,9 +24,9 @@ import type { Scene, SceneFrame } from '../engine/scene';
 import { buildCorridor, drawCorridor, FLOOR, type CorridorWorld } from './corridor';
 
 /** Até aqui o pixel ainda está voltando. */
-const RESOLVE_ATE = 0.22;
-/** Onde as luzes apagam e ele vai embora. */
-const APAGA_EM = 0.82;
+const RESOLVE_ATE = 0.136;
+/** Onde as luzes apagam e ele vai embora — no bloco que diz isso. */
+const APAGA_EM = 0.697;
 
 const BRUCE_X = 74;
 
@@ -35,7 +35,7 @@ let world: CorridorWorld | null = null;
 export const S20: Scene = {
   id: 'S20',
   register: 'C',
-  viewports: 2,
+  viewports: 2.5,
   palette: P_HALL,
   ambience: ['passos'],
 
@@ -53,7 +53,7 @@ export const S20: Scene = {
     const limiar = 1 - resolve;
 
     // As luzes apagam no fim, e o corredor fica ali por um instante depois.
-    const apaga = range(t, APAGA_EM, 0.96);
+    const apaga = range(t, APAGA_EM, 0.9);
     const luz = 1 - apaga;
 
     const ctx = registers.beginA(c.void);

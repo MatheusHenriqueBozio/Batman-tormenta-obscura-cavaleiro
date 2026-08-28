@@ -1,5 +1,5 @@
 /**
- * S14 — A LUZ TENTADORA · limiar · preto + amarelo · 2 viewports
+ * S14 — A LUZ TENTADORA · limiar · preto + amarelo · 6 viewports
  *
  * O corredor perde o pixel. O grid dilata até virar mancha — é a primeira vez
  * na obra que o limiar do §5 é usado para valer, e ele é a mesma função
@@ -15,7 +15,7 @@
  * Ele é que anda para o outro lado. Isso é muito mais preciso do que apagá-la.
  */
 
-import { applyGrain, misregister } from '../visual/grain';
+import { misregister } from '../visual/grain';
 import { ajoelhado, silhueta } from '../visual/figures';
 import { collapseTo, P_HALL, P_LIGHT } from '../visual/palettes';
 import { threshold } from '../visual/registers';
@@ -24,8 +24,13 @@ import { clamp, easeInOut, lerp, range } from '../engine/math';
 import type { Scene, SceneFrame } from '../engine/scene';
 import { buildCorridor, drawCorridor, FLOOR, type CorridorWorld } from './corridor';
 
-/** Até aqui o corredor ainda existe, dilatando. Depois, só o preto. */
-const DISSOLVE_ATE = 0.32;
+/**
+ * Até aqui o corredor ainda existe, dilatando. Depois, só o preto.
+ *
+ * São 0,8 viewport de dissolução. Antes eram 1,36, e naquele tamanho a cena
+ * gastava um terço do próprio curso antes da primeira palavra.
+ */
+const DISSOLVE_ATE = 0.133;
 /** Onde a forma errada entra. Ela não sai mais. */
 const JASON_EM = 0.5;
 /** Onde ele para de olhar para a luz e anda para o outro lado. */
@@ -38,7 +43,7 @@ let world: CorridorWorld | null = null;
 export const S14: Scene = {
   id: 'S14',
   register: 'C',
-  viewports: 4,
+  viewports: 6,
   pinned: true,
   palette: P_LIGHT,
 
@@ -74,9 +79,14 @@ export const S14: Scene = {
     const { w: vw, h: vh } = registers.viewport;
 
     // A luz. Fica onde está, do começo ao fim da cena.
-    const luzX = vw * 0.78;
-    const luzY = vh * 0.46;
-    const raio = Math.min(vw, vh) * 0.035;
+    //
+    // Alta e ao fundo, e não à altura dos olhos: as falas do Coringa ocupam a
+    // coluna da direita, e no meio do quadro o halo comia as palavras —
+    // amarelo sobre amarelo. Uma luz mais alta também é uma luz mais longe, o
+    // que é o que a cena diz dela. Ele continua ajoelhado olhando para cima.
+    const luzX = vw * 0.82;
+    const luzY = vh * 0.13;
+    const raio = Math.min(vw, vh) * 0.032;
 
     // O halo é chapado e em degraus, não em rampa: a cor está quantizada.
     ctx.fillStyle = c.yellowDim;
@@ -122,8 +132,9 @@ export const S14: Scene = {
       ctx.globalAlpha = 1;
     }
 
-    registers.endB(0.07);
-    applyGrain(ctx, vw, vh, 0.02);
+    // Uma passada de grão, não duas. A segunda era constante e só somava
+    // 0,02 à primeira — o mesmo resultado que subir esta, por metade do custo.
+    registers.endB(0.08);
   },
 };
 

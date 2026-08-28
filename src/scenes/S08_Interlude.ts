@@ -9,7 +9,6 @@
  * com a Bárbara da conversa com o Alfred.
  */
 
-import { applyGrain } from '../visual/grain';
 import { P_VOID } from '../visual/palettes';
 import type { Scene, SceneFrame } from '../engine/scene';
 import { clamp } from '../engine/math';
@@ -55,7 +54,6 @@ export const S08: Scene = {
     ctx.globalAlpha = 1;
 
     registers.endB(0.05);
-    applyGrain(ctx, w, h, 0.03 * vivo);
   },
 };
 

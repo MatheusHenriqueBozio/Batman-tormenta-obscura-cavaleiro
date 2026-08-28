@@ -53,7 +53,7 @@ function paraTela(
 export const S13: Scene = {
   id: 'S13',
   register: 'A',
-  viewports: 2,
+  viewports: 1.5,
   pinned: true,
   palette: P_HALL,
   ambience: ['passos'],

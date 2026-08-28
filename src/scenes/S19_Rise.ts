@@ -68,8 +68,13 @@ export const S19: Scene = {
     // Encolhido, sentado, de pé de costas, de pé contra a luz. A postura muda
     // junto com a cor, e nada acompanha a mudança: nem efeito, nem corte, nem
     // capa esvoaçando. É alguém que estava no chão e agora não está.
+    //
+    // Ele fica dentro do vão, e fora do centro dele. Em 0,42 caía à esquerda
+    // da luz, preto sobre preto, e nos últimos vinte por cento da cena não
+    // sobrava na tela nada além de um retângulo dourado. Contraluz só existe
+    // se houver luz atrás.
     ctx.fillStyle = c.void;
-    const cx = w * 0.42;
+    const cx = w * 0.54;
     const alt = lerp(h * 0.13, h * 0.5, t);
     if (estagio === 0) {
       ajoelhado(ctx, cx, chao, alt * 1.15);

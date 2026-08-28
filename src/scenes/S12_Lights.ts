@@ -1,5 +1,5 @@
 /**
- * S12 — LUZES · Registro A/C · 2 viewports pinned
+ * S12 — LUZES · Registro A/C · 2,5 viewports pinned
  *
  * A iluminação inteira do corredor está amarrada ao scroll. Alguns quadros
  * ficam completamente pretos. Quando a luz volta, o Coringa está em outra
@@ -25,8 +25,13 @@ import { clamp } from '../engine/math';
 import type { Scene, SceneFrame } from '../engine/scene';
 import { buildCorridor, drawCorridor, FLOOR, type CorridorWorld } from './corridor';
 
-/** Depois daqui a luz não pisca mais. Ele parou de brincar. */
-const LUZ_FIXA_EM = 0.62;
+/**
+ * Depois daqui a luz não pisca mais. Ele parou de brincar.
+ *
+ * O número não é solto: é onde começa o bloco "Então o Coringa parou. A luz
+ * ficou acesa." A frase e o fato acontecem no mesmo ponto do scroll.
+ */
+const LUZ_FIXA_EM = 0.563;
 
 const BRUCE_X = 64;
 
@@ -35,6 +40,12 @@ const BRUCE_X = 64;
  *
  * Sorteados uma vez, com semente fixa. Os intervalos são desiguais de
  * propósito: um piscar regular vira metrônomo, e metrônomo não incomoda.
+ *
+ * O passo tem um piso, e o piso é a roda do mouse. Um estado de luz que dure
+ * menos que um gesto de rolagem não é percebido como ritmo: ele é pulado. Com
+ * 2,5 viewports, estes números dão intervalos de 133 a 250 pixels de scroll —
+ * o mais curto ainda maior que um clique da roda, e o mais longo quase o
+ * dobro dele. A irregularidade continua; o que sai é a parte que ninguém via.
  */
 const CORTES: readonly number[] = (() => {
   const rand = mulberry32(0x1c3b);
@@ -42,7 +53,7 @@ const CORTES: readonly number[] = (() => {
   let t = 0.05;
   while (t < LUZ_FIXA_EM) {
     out.push(t);
-    t += 0.016 + rand() * 0.062;
+    t += 0.06 + rand() * 0.08;
   }
   return out;
 })();
@@ -70,7 +81,7 @@ let world: CorridorWorld | null = null;
 export const S12: Scene = {
   id: 'S12',
   register: 'A',
-  viewports: 2,
+  viewports: 2.5,
   pinned: true,
   palette: P_HALL,
   ambience: ['passos'],

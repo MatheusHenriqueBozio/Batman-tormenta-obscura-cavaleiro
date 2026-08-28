@@ -16,7 +16,6 @@
  * possível, sem fim obrigatório. Parar é uma das respostas.
  */
 
-import { applyGrain, fbm } from '../visual/grain';
 import { P_SHIP } from '../visual/palettes';
 import * as Ship from '../games/Ship';
 import { clamp } from '../engine/math';
@@ -131,17 +130,12 @@ export const S23: Scene = {
     palco = registers.main;
     palco.style.cursor = Ship.sobreCaixa(input, caixas) ? 'pointer' : '';
 
-    // Um fio de textura no céu, para o azul não ficar morto.
-    ctx.globalAlpha = 0.05;
-    ctx.fillStyle = c.white;
-    for (let i = 0; i < 40; i++) {
-      const y = ((i * 97 + subiu * 0.4) % h) | 0;
-      if (fbm(i * 0.4, 2.1, 2) > 0.1) ctx.fillRect(0, y, w, 1);
-    }
-    ctx.globalAlpha = 1;
-
-    registers.endB(0.04);
-    applyGrain(ctx, w, h, 0.015);
+    // Aqui havia quarenta linhas de textura atravessando o céu, "para o azul
+    // não ficar morto". A justificativa era essa mesma: nenhuma. O céu desta
+    // cena é o único lugar largo e calmo da obra inteira, e enchê-lo de
+    // textura era desfazer justamente o que ele diz. Saiu, junto com a
+    // segunda passada de grão, que repetia a primeira.
+    registers.endB(0.05);
   },
 
   exit(): void {

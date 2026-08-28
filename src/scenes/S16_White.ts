@@ -73,12 +73,13 @@ export const S16: Scene = {
 
     // Não entra com efeito nenhum. Ele estava atrás dele o tempo todo, e a
     // cena só chega no ponto em que Bruce olha.
-    const encontro = range(t, ENCONTRO_EM, 1);
-    if (encontro > 0) {
+    //
+    // Era isso que o comentário dizia, e não era isso que o código fazia:
+    // havia um fade de meia janela. Um fade é a figura chegando; o que a cena
+    // precisa é da figura já estando. Agora ela simplesmente está.
+    if (t >= ENCONTRO_EM) {
       ctx.fillStyle = c.grey;
-      ctx.globalAlpha = Math.min(1, encontro * 2);
       silhueta(ctx, w * 0.5, h * 0.93, { h: h * 0.42 });
-      ctx.globalAlpha = 1;
     }
 
     // Sem grão. Esta cena é limpa porque é lembrança, e lembrança de criança

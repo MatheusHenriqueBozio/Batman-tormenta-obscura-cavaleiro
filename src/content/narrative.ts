@@ -13,9 +13,11 @@
  * como comentário aqui, e não como dado: assim não há como exibi-las por
  * engano.
  *
- * As cenas ainda não implementadas já estão com o texto no lugar, mas com
- * janelas de progresso provisórias, marcadas como tal. Afinar uma janela é
- * trabalho da fase que constrói a cena, e não mexe no texto.
+ * As janelas de progresso passaram pela calibração da Fase 6. O critério é um
+ * só: a janela de um bloco nunca dura menos que 380 caracteres por viewport de
+ * rolagem, com piso de 0,17 viewport para as frases curtas. Abaixo disso um
+ * parágrafo some antes de ser lido, porque um clique da roda do mouse anda mais
+ * do que a janela inteira. Ajustar uma janela nunca mexe no texto.
  *
  * Fora daqui: os diálogos em caixa (S06, S07, S09) estão em `dialogue.ts`, e o
  * asterisco triplo da S08 é desenhado pela cena, porque ali ele vira imagem.
@@ -323,7 +325,7 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
     id: 'S11-a',
     scene: 'S11',
     from: 0.04,
-    to: 0.3,
+    to: 0.354,
     register: 'A',
     place: 'left',
     lines: [
@@ -333,8 +335,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S11-b',
     scene: 'S11',
-    from: 0.38,
-    to: 0.68,
+    from: 0.506,
+    to: 0.691,
     register: 'A',
     place: 'left',
     lines: [
@@ -344,8 +346,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S11-c',
     scene: 'S11',
-    from: 0.74,
-    to: 0.98,
+    from: 0.842,
+    to: 0.97,
     register: 'A',
     place: 'left',
     lines: [
@@ -359,8 +361,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S12-a',
     scene: 'S12',
-    from: 0.03,
-    to: 0.16,
+    from: 0.024,
+    to: 0.15,
     register: 'A',
     place: 'left',
     lines: [
@@ -370,8 +372,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S12-b',
     scene: 'S12',
-    from: 0.19,
-    to: 0.33,
+    from: 0.183,
+    to: 0.347,
     register: 'A',
     place: 'left',
     lines: [
@@ -381,8 +383,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S12-c',
     scene: 'S12',
-    from: 0.36,
-    to: 0.55,
+    from: 0.379,
+    to: 0.531,
     register: 'A',
     place: 'left',
     lines: [
@@ -392,8 +394,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S12-d',
     scene: 'S12',
-    from: 0.6,
-    to: 0.7,
+    from: 0.563,
+    to: 0.631,
     register: 'A',
     place: 'left',
     lines: [
@@ -403,8 +405,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S12-e',
     scene: 'S12',
-    from: 0.73,
-    to: 0.84,
+    from: 0.663,
+    to: 0.758,
     register: 'A',
     place: 'left',
     lines: [
@@ -414,8 +416,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S12-f',
     scene: 'S12',
-    from: 0.86,
-    to: 0.9,
+    from: 0.79,
+    to: 0.858,
     register: 'A',
     place: 'left',
     lines: [
@@ -425,8 +427,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S12-g',
     scene: 'S12',
-    from: 0.93,
-    to: 0.99,
+    from: 0.891,
+    to: 0.976,
     register: 'A',
     place: 'left',
     lines: [
@@ -453,7 +455,7 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
     id: 'S13-b',
     scene: 'S13',
     from: 0.19,
-    to: 0.28,
+    to: 0.305,
     register: 'A',
     place: 'left',
     lines: [
@@ -463,8 +465,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S13-c',
     scene: 'S13',
-    from: 0.31,
-    to: 0.44,
+    from: 0.33,
+    to: 0.477,
     register: 'A',
     place: 'left',
     lines: [
@@ -478,8 +480,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S14-a',
     scene: 'S14',
-    from: 0.34,
-    to: 0.373,
+    from: 0.133,
+    to: 0.203,
     register: 'B',
     place: 'left',
     lines: [
@@ -489,8 +491,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S14-b',
     scene: 'S14',
-    from: 0.379,
-    to: 0.411,
+    from: 0.21,
+    to: 0.239,
     register: 'B',
     place: 'left',
     lines: [
@@ -500,8 +502,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S14-c',
     scene: 'S14',
-    from: 0.417,
-    to: 0.45,
+    from: 0.246,
+    to: 0.275,
     register: 'B',
     place: 'left',
     lines: [
@@ -511,8 +513,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S14-d',
     scene: 'S14',
-    from: 0.456,
-    to: 0.488,
+    from: 0.282,
+    to: 0.319,
     register: 'B',
     at: { x: 50, y: 26 },
     size: 'g',
@@ -523,8 +525,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S14-e',
     scene: 'S14',
-    from: 0.494,
-    to: 0.527,
+    from: 0.327,
+    to: 0.355,
     register: 'B',
     place: 'left',
     lines: [
@@ -534,8 +536,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S14-f',
     scene: 'S14',
-    from: 0.533,
-    to: 0.566,
+    from: 0.363,
+    to: 0.433,
     register: 'B',
     place: 'left',
     lines: [
@@ -545,8 +547,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S14-g',
     scene: 'S14',
-    from: 0.572,
-    to: 0.605,
+    from: 0.441,
+    to: 0.494,
     register: 'B',
     place: 'left',
     lines: [
@@ -556,8 +558,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S14-h',
     scene: 'S14',
-    from: 0.611,
-    to: 0.644,
+    from: 0.502,
+    to: 0.564,
     register: 'B',
     place: 'right',
     lines: [
@@ -567,8 +569,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S14-i',
     scene: 'S14',
-    from: 0.65,
-    to: 0.682,
+    from: 0.572,
+    to: 0.606,
     register: 'B',
     place: 'left',
     lines: [
@@ -578,8 +580,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S14-j',
     scene: 'S14',
-    from: 0.688,
-    to: 0.721,
+    from: 0.613,
+    to: 0.685,
     register: 'B',
     place: 'right',
     lines: [
@@ -589,8 +591,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S14-k',
     scene: 'S14',
-    from: 0.727,
-    to: 0.76,
+    from: 0.693,
+    to: 0.729,
     register: 'B',
     place: 'left',
     lines: [
@@ -600,8 +602,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S14-l',
     scene: 'S14',
-    from: 0.766,
-    to: 0.798,
+    from: 0.737,
+    to: 0.776,
     register: 'B',
     place: 'right',
     lines: [
@@ -611,8 +613,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S14-m',
     scene: 'S14',
-    from: 0.804,
-    to: 0.836,
+    from: 0.784,
+    to: 0.812,
     register: 'B',
     place: 'left',
     lines: [
@@ -622,8 +624,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S14-n',
     scene: 'S14',
-    from: 0.842,
-    to: 0.875,
+    from: 0.82,
+    to: 0.869,
     register: 'B',
     place: 'right',
     lines: [
@@ -633,8 +635,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S14-o',
     scene: 'S14',
-    from: 0.881,
-    to: 0.913,
+    from: 0.877,
+    to: 0.905,
     register: 'B',
     place: 'left',
     lines: [
@@ -644,8 +646,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S14-p',
     scene: 'S14',
-    from: 0.919,
-    to: 0.952,
+    from: 0.913,
+    to: 0.954,
     register: 'B',
     place: 'right',
     lines: [
@@ -655,7 +657,7 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S14-q',
     scene: 'S14',
-    from: 0.958,
+    from: 0.962,
     to: 0.99,
     register: 'B',
     place: 'left',
@@ -670,8 +672,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S15-a',
     scene: 'S15',
-    from: 0.02,
-    to: 0.14,
+    from: 0.015,
+    to: 0.058,
     register: 'B',
     place: 'left',
     lines: [
@@ -681,8 +683,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S15-b',
     scene: 'S15',
-    from: 0.16,
-    to: 0.3,
+    from: 0.072,
+    to: 0.176,
     register: 'B',
     place: 'left',
     lines: [
@@ -692,8 +694,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S15-c',
     scene: 'S15',
-    from: 0.32,
-    to: 0.42,
+    from: 0.191,
+    to: 0.243,
     register: 'B',
     place: 'left',
     lines: [
@@ -703,8 +705,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S15-d',
     scene: 'S15',
-    from: 0.44,
-    to: 0.55,
+    from: 0.258,
+    to: 0.31,
     register: 'B',
     place: 'left',
     lines: [
@@ -714,8 +716,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S15-e',
     scene: 'S15',
-    from: 0.62,
-    to: 0.68,
+    from: 0.41,
+    to: 0.453,
     register: 'B',
     place: 'left',
     lines: [
@@ -725,8 +727,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S15-f',
     scene: 'S15',
-    from: 0.7,
-    to: 0.78,
+    from: 0.468,
+    to: 0.516,
     register: 'B',
     place: 'left',
     lines: [
@@ -736,8 +738,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S15-g',
     scene: 'S15',
-    from: 0.8,
-    to: 0.9,
+    from: 0.531,
+    to: 0.704,
     register: 'B',
     place: 'left',
     lines: [
@@ -747,8 +749,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S15-h',
     scene: 'S15',
-    from: 0.92,
-    to: 0.99,
+    from: 0.719,
+    to: 0.985,
     register: 'B',
     place: 'left',
     lines: [
@@ -762,8 +764,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S16-a',
     scene: 'S16',
-    from: 0.04,
-    to: 0.18,
+    from: 0.05,
+    to: 0.237,
     register: 'B',
     at: { x: 50, y: 70 },
     size: 'm',
@@ -774,8 +776,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S16-b',
     scene: 'S16',
-    from: 0.22,
-    to: 0.36,
+    from: 0.288,
+    to: 0.496,
     register: 'B',
     at: { x: 50, y: 70 },
     size: 'm',
@@ -786,8 +788,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S16-c',
     scene: 'S16',
-    from: 0.44,
-    to: 0.56,
+    from: 0.548,
+    to: 0.633,
     register: 'B',
     at: { x: 50, y: 70 },
     size: 'm',
@@ -798,8 +800,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S16-d',
     scene: 'S16',
-    from: 0.62,
-    to: 0.74,
+    from: 0.684,
+    to: 0.813,
     register: 'B',
     at: { x: 50, y: 70 },
     size: 'm',
@@ -810,8 +812,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S16-e',
     scene: 'S16',
-    from: 0.82,
-    to: 0.96,
+    from: 0.865,
+    to: 0.95,
     register: 'B',
     at: { x: 50, y: 70 },
     size: 'm',
@@ -826,10 +828,10 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S17-a',
     scene: 'S17',
-    from: 0.02,
-    to: 0.091,
+    from: 0.013,
+    to: 0.071,
     register: 'B',
-    place: 'center',
+    place: 'right',
     lines: [
       { kind: "fala", text: "— Você sabe que é o certo. Você sabe o que é certo. — disse a figura do Batman, imponente e sólida." },
     ],
@@ -837,8 +839,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S17-b',
     scene: 'S17',
-    from: 0.099,
-    to: 0.143,
+    from: 0.087,
+    to: 0.125,
     register: 'B',
     place: 'left',
     lines: [
@@ -848,10 +850,10 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S17-c',
     scene: 'S17',
-    from: 0.151,
-    to: 0.295,
+    from: 0.141,
+    to: 0.282,
     register: 'B',
-    place: 'center',
+    place: 'right',
     lines: [
       { kind: "fala", text: "— Há quanto tempo estamos nisso? E tudo sempre se resolveu, dentro do possível. Olha aonde chegamos. Não vai jogar fora esse nosso esquema assim do nada, depois de tantos anos. Seria um prejuízo imenso. — disse a figura, num tom autoritário." },
     ],
@@ -859,8 +861,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S17-d',
     scene: 'S17',
-    from: 0.303,
-    to: 0.359,
+    from: 0.298,
+    to: 0.338,
     register: 'B',
     place: 'left',
     lines: [
@@ -870,10 +872,10 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S17-e',
     scene: 'S17',
-    from: 0.367,
-    to: 0.453,
+    from: 0.354,
+    to: 0.429,
     register: 'B',
-    place: 'center',
+    place: 'right',
     lines: [
       { kind: "fala", text: "— Eu te avisei de coisas que ninguém te avisou. Eu te fiz sobreviver a noites que teriam matado qualquer outro. Você sabe disso." },
     ],
@@ -881,8 +883,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S17-f',
     scene: 'S17',
-    from: 0.461,
-    to: 0.485,
+    from: 0.445,
+    to: 0.483,
     register: 'B',
     place: 'left',
     lines: [
@@ -892,10 +894,10 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S17-g',
     scene: 'S17',
-    from: 0.493,
-    to: 0.554,
+    from: 0.499,
+    to: 0.546,
     register: 'B',
-    place: 'center',
+    place: 'right',
     lines: [
       { kind: "fala", text: "— Você vai se arrepender. E quando se arrepender, vai voltar. Você sempre volta." },
     ],
@@ -904,7 +906,7 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
     id: 'S17-h',
     scene: 'S17',
     from: 0.562,
-    to: 0.647,
+    to: 0.635,
     register: 'B',
     place: 'left',
     lines: [
@@ -914,10 +916,10 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S17-i',
     scene: 'S17',
-    from: 0.655,
-    to: 0.781,
+    from: 0.651,
+    to: 0.772,
     register: 'B',
-    place: 'center',
+    place: 'right',
     lines: [
       { kind: "fala", text: "— Olha o que você está fazendo com a gente. Fugindo assim do problema! Isso não é digno, não é uma superação. Você está me dilacerando. Depois de tudo... — dizia a criatura, com uma voz mais rouca e mórbida." },
     ],
@@ -925,8 +927,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S17-j',
     scene: 'S17',
-    from: 0.789,
-    to: 0.864,
+    from: 0.788,
+    to: 0.849,
     register: 'B',
     place: 'left',
     lines: [
@@ -936,8 +938,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S17-k',
     scene: 'S17',
-    from: 0.872,
-    to: 0.902,
+    from: 0.865,
+    to: 0.903,
     register: 'B',
     place: 'left',
     lines: [
@@ -947,10 +949,10 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S17-l',
     scene: 'S17',
-    from: 0.91,
-    to: 0.99,
+    from: 0.919,
+    to: 0.987,
     register: 'B',
-    place: 'center',
+    place: 'right',
     lines: [
       { kind: "fala", text: "— Cada vez que não me ouve, você fracassa. Você mesmo vai evidenciar isso... — tentava ainda a criatura persuadi-lo." },
     ],
@@ -1028,8 +1030,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S18-g',
     scene: 'S18',
-    from: 0.67,
-    to: 0.72,
+    from: 0.665,
+    to: 0.729,
     register: 'B',
     place: 'left',
     lines: [
@@ -1073,8 +1075,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S18-k',
     scene: 'S18',
-    from: 0.9,
-    to: 0.93,
+    from: 0.88,
+    to: 0.914,
     register: 'B',
     place: 'left',
     lines: [
@@ -1084,8 +1086,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S18-l',
     scene: 'S18',
-    from: 0.945,
-    to: 0.965,
+    from: 0.928,
+    to: 0.962,
     register: 'B',
     place: 'left',
     lines: [
@@ -1095,7 +1097,7 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S18-m',
     scene: 'S18',
-    from: 0.98,
+    from: 0.966,
     to: 1.0,
     register: 'B',
     place: 'left',
@@ -1110,8 +1112,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S20-a',
     scene: 'S20',
-    from: 0.24,
-    to: 0.4,
+    from: 0.136,
+    to: 0.327,
     register: 'A',
     place: 'left',
     lines: [
@@ -1121,8 +1123,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S20-b',
     scene: 'S20',
-    from: 0.43,
-    to: 0.54,
+    from: 0.342,
+    to: 0.432,
     register: 'A',
     place: 'left',
     lines: [
@@ -1132,8 +1134,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S20-c',
     scene: 'S20',
-    from: 0.56,
-    to: 0.62,
+    from: 0.447,
+    to: 0.515,
     register: 'A',
     place: 'left',
     lines: [
@@ -1143,8 +1145,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S20-d',
     scene: 'S20',
-    from: 0.65,
-    to: 0.71,
+    from: 0.531,
+    to: 0.599,
     register: 'A',
     place: 'left',
     lines: [
@@ -1154,8 +1156,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S20-e',
     scene: 'S20',
-    from: 0.73,
-    to: 0.8,
+    from: 0.614,
+    to: 0.682,
     register: 'A',
     place: 'left',
     lines: [
@@ -1165,8 +1167,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S20-f',
     scene: 'S20',
-    from: 0.83,
-    to: 0.92,
+    from: 0.697,
+    to: 0.888,
     register: 'A',
     place: 'left',
     lines: [
@@ -1176,8 +1178,8 @@ export const NARRATIVE: readonly NarrativeBlock[] = [
   {
     id: 'S20-g',
     scene: 'S20',
-    from: 0.94,
-    to: 1.0,
+    from: 0.904,
+    to: 0.992,
     register: 'A',
     place: 'left',
     lines: [

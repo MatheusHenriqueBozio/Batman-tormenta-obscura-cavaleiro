@@ -21,8 +21,17 @@ import type { Scene, SceneFrame } from '../engine/scene';
 
 /** O preto que fica antes de qualquer coisa subir, em ms. */
 const SILENCIO = 2600;
-/** Pixels internos por segundo. Lento de propósito. */
-const VELOCIDADE = 11;
+/**
+ * Pixels internos por segundo. Lento de propósito, mas não a ponto de cobrar
+ * a paciência de quem já acabou.
+ *
+ * Em 11 px/s os créditos duravam setenta segundos — a lista da Fase 6 supunha
+ * cinquenta e dois, e o número real era pior. Em 16 são quarenta e nove, e
+ * cada linha ainda cruza a tela em onze segundos, que é muito mais tempo do
+ * que qualquer uma delas precisa. A piada da redundância continua tendo o
+ * acúmulo de que precisa; o que sai é a espera depois dela.
+ */
+const VELOCIDADE = 16;
 /** Espaçamento largo entre linhas. */
 const ENTRELINHA = LINE_H + 5;
 /** O quanto o preto fica depois que a última linha sai. */

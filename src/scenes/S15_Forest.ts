@@ -15,7 +15,7 @@
  * certa.
  */
 
-import { applyGrain, misregister, mulberry32 } from '../visual/grain';
+import { misregister, mulberry32 } from '../visual/grain';
 import { silhueta } from '../visual/figures';
 import { P_FOREST } from '../visual/palettes';
 import * as Forest from '../games/Forest';
@@ -24,11 +24,11 @@ import type { Scene, SceneFrame } from '../engine/scene';
 
 /** Onde o microgame prende o leitor. Fica num vão entre dois blocos de texto:
  *  o trecho escuro não pode ter texto nenhum na tela (§S15). */
-const JOGO_EM = 0.56;
-const TETO_JOGO = 0.58;
+const JOGO_EM = 0.32;
+const TETO_JOGO = 0.34;
 
 /** Até aqui as verticais ainda estão virando árvores. */
-const MORPH_ATE = 0.16;
+const MORPH_ATE = 0.14;
 
 interface Tronco {
   /** Onde a tábua estava. */
@@ -74,7 +74,7 @@ const jogo = { estado: null as Forest.ForestState | null };
 export const S15: Scene = {
   id: 'S15',
   register: 'B',
-  viewports: 3,
+  viewports: 4,
   pinned: true,
   palette: P_FOREST,
   ambience: ['floresta'],
@@ -187,8 +187,8 @@ export const S15: Scene = {
       ctx.textAlign = 'left';
     }
 
-    registers.endB(0.06);
-    applyGrain(ctx, w, h, 0.02);
+    // Uma passada só: a segunda era constante e fazia o que esta já faz.
+    registers.endB(0.07);
   },
 
   hold(f: SceneFrame): number | null {

@@ -19,7 +19,7 @@
  *    dela, em vez de nomear a doença.
  */
 
-import { applyGrain, misregister } from '../visual/grain';
+import { misregister } from '../visual/grain';
 import { P_ORACLE, P_SPRING } from '../visual/palettes';
 import {
   advance,
@@ -269,8 +269,6 @@ export const S07: Scene = {
       ctx.drawImage(registers.a, 0, 0, A_W, A_H, dx, dy, A_W * escala, A_H * escala);
       ctx.restore();
     }
-
-    applyGrain(ctx, w, h, 0.02);
   },
 
   hold(f: SceneFrame): number | null {
